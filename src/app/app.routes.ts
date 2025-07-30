@@ -6,11 +6,7 @@ export const appRoutes: Routes = [
     { path: '', redirectTo: '/music', pathMatch: 'full' },
 
     // Lazy load the MusicModule
-    {
-        path: 'campaign',
-        loadChildren: () =>
-            import('./campaign/campaign.module').then((m) => m.CampaignModule),
-    },
+
     {
         path: 'playlist',
         loadChildren: () =>
