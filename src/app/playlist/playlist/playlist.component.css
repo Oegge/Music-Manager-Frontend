@@ -1,0 +1,120 @@
+/* Grid Container */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px;
+}
+
+.row-menu {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.pause-button {
+  width: fit-content;
+  background-color: var(--background-color-hover-translucent);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color-ui); /* Grayish icon */
+  font-size: 24px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-button:hover {
+  color: var(--text-color-solid); /* Brighter on hover */
+}
+
+/* Music Card Styles */
+.music-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--background-color-solid);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  overflow: hidden;
+}
+
+.row {
+  grid-template-columns: 1fr 1fr;
+}
+
+.song-title {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--text-color-solid);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.song-tags {
+  font-size: 0.85rem;
+  color: var(--text-color-ui);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  background: var(--button-secondary-color-translucent);
+  color: var(--text-color-highlight-solid);
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+.audio-player {
+  width: 100%;
+  outline: none;
+}
+
+.repeat-button {
+  width: fit-content;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color-ui);
+  font-size: 24px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.repeat-button:hover {
+  color: var(--text-color-solid);
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .music-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .music-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .music-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.music-card.active {
+  border-color: var(--text-color-highlight-solid);
+  background-color: var(--background-color-hover-solid);
+  box-shadow: 0 0 10px var(--shadow-color);
+}

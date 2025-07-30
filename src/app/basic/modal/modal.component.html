@@ -1,0 +1,16 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onClose()"></div>
+
+<!-- Modal Wrapper (for positioning) -->
+<div class="modal-wrapper" *ngIf="isOpen">
+  <!-- Modal -->
+  <div class="modal" [ngStyle]="modalStyle" [ngClass]="modalClass">
+    <div class="modal-content">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+  </div>
+
+  <!-- Close Button -->
+  <button class="close-btn" (click)="onClose()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>

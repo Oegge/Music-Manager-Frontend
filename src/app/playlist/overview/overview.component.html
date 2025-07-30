@@ -1,0 +1,31 @@
+<div class="playlist-grid">
+  <div class="playlist-card" *ngFor="let playlist of playlists">
+    <!-- Card Split: Left and Right -->
+    <div class="card-left" (click)="navigateToPlaylist(playlist.id)">
+      <div class="playlist-link">{{ playlist.name }}</div>
+    </div>
+
+    <div class="card-right ">
+      <button
+        class="delete-button"
+        (click)="openDeleteModal(playlist); $event.stopPropagation()"
+        aria-label="Delete Playlist"
+      >
+     X
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Global Modal Template -->
+<modal [isOpen]="isModalOpen">
+  <ng-template #content>
+    <h2>Delete Playlist</h2>
+    <p>Are you sure you want to delete <strong>{{ selectedPlaylist?.name }}</strong>?</p>
+
+    <div class="modal-actions">
+      <button (click)="confirmDelete()" class="confirm-btn">Yes, delete</button>
+      <button (click)="closeModal()" class="cancel-btn">Cancel</button>
+    </div>
+  </ng-template>
+</modal>

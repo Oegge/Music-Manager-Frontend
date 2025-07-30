@@ -1,0 +1,103 @@
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.playlist-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color-translucent);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.playlist-card:hover {
+  background-color: var(--background-color-hover-translucent);
+  border-radius: 1rem;
+  transition: box-shadow 0.3s ease;
+  transform: scale(1.05) ;
+}
+
+
+.card-left {
+  flex: 1;
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+.card-right {
+  height: 100%;
+  padding: 1.5rem;
+  background-color: var(--background-color-translucent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlist-link {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color-solid);
+}
+
+.playlist-link:hover {
+  text-decoration: underline;
+}
+
+.playlist-count {
+  color: var(--text-color-solid);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+
+.delete-button {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-color-highlight-solid);
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: var(--text-color-highlight-solid);
+}
+
+/* Modal actions */
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.confirm-btn {
+  background-color: var(--background-color-translucent);
+  color: var(--text-color-solid);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: var(--background-color-hover-translucent);
+}
+
+.cancel-btn {
+  background-color: var(--background-color-translucent);
+  color: var(--text-color-highlight-solid);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: var(--background-color-hover-translucent);
+}

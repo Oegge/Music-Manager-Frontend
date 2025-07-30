@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()" #uploadForm="ngForm" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="song.title" required />
+
+    <label for="artist">Artist:</label>
+    <input type="text" id="artist" name="artist" [(ngModel)]="song.artist" required />
+
+    <label for="tags">Tags:</label>
+    <select style="width: 200px" id="tags" [(ngModel)]="selectedTagId" name="selectedTag">
+        <option *ngFor="let tag of availableTags" [value]="tag.id">
+            {{ tag.name }}
+        </option>
+    </select>
+    <button type="button" (click)="addTag()">Add Tag</button>
+
+    <ul>
+        <li *ngFor="let tag of song.tags">
+            {{ tag.name }}
+            <button type="button" (click)="removeTag(tag)">Remove</button>
+        </li>
+    </ul>
+
+    <label for="file">File:</label>
+    <input type="file" id="file" (change)="onFileChange($event)" required />
+
+    <button type="submit">Upload</button>
+</form>

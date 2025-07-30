@@ -1,0 +1,38 @@
+<h1>{{ playlist?.name }}</h1>
+<div class="row-menu">
+
+  <div class="fade-toggle">
+    <mat-slide-toggle [(ngModel)]="enableFade">Enable Fade</mat-slide-toggle>
+  </div>
+  <button (click)="pauseAllPlayers()" class="pause-button">
+            <span class="material-icons">
+                {{ isPaused ? 'pause' : 'play_arrow' }}
+            </span>
+  </button>
+</div>
+
+<div class="music-grid">
+  <div *ngFor="let song of musicList; let i = index" class="music-card" [class.active]="currentSongIndex === i">
+    <h3 class="song-title">{{ song.title }}</h3>
+    <p class="song-tags">
+      <ng-container *ngFor="let tag of song.tags">
+        <span class="tag">{{ tag.name }}</span>
+      </ng-container>
+    </p>
+    <div class="row">
+
+      <button (click)="toggleRepeat(i)" class="repeat-button">
+            <span class="material-icons">
+                {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
+            </span>
+      </button>
+      <button (click)="playSong(i)" class="btn">Play</button>
+      <audio controls
+             [src]="song.filePath"
+             class="audio-player"
+             #audioPlayer
+             (ended)="handleSongEnd(i)">
+      </audio>
+    </div>
+  </div>
+</div>

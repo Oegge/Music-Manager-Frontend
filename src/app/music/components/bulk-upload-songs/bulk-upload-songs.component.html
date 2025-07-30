@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Bulk Upload Songs</h2>
+    <input type="file" (change)="onFilesSelected($event)" multiple />
+
+    <div *ngFor="let song of songs; let i = index" class="song-entry">
+        <div>
+            <label for="title-{{ i }}">Title</label>
+            <input
+                    id="title-{{ i }}"
+                    type="text"
+                    [(ngModel)]="song.title"
+                    placeholder="Enter title"
+                    required
+            />
+        </div>
+        <div>
+            <label for="tags-{{ i }}">Tags</label>
+            <mat-form-field>
+                <mat-select
+                        [formControl]="song.selectedTagsControl"
+                        multiple
+                        placeholder="Select tags"
+                        class="select"
+                >
+                    <!-- Place ngx-mat-select-search here -->
+                    <mat-option class="select2-results__option--selectable">
+                        <ngx-mat-select-search
+                                [formControl]="song.tagSearchControl"
+                                placeholderLabel="Search tags"
+                                noEntriesFoundLabel="No tags found"
+                        ></ngx-mat-select-search>
+                    </mat-option>
+
+                    <!-- List of mat-options -->
+                    <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag.id">
+                        {{ tag.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <button (click)="submitSongs()">Submit</button>
+</div>

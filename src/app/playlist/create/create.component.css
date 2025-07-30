@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search, .name {
+  min-width: 200px
+}
+
+.row {
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.search-filter-area {
+  height: 50px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.search-filter-area input,
+.search-filter-area select {
+}
+
+.song-list {
+  border: 1px solid #6a4444;
+  border-radius: 5px;
+  height: 600px; /* Adjust based on your design */
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.song-entry {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.song-entry img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.song-entry span {
+  margin-right: 10px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; /* Ensures consistent spacing around each tag */
+  align-items: center;
+  margin-bottom: 10px; /* Space below the tag container if needed */
+}
+
+.tag {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  padding: 5px 8px; /* Slightly increased vertical padding */
+  font-size: 0.8em;
+  display: inline-block; /* Ensure tags are treated as inline-block for proper spacing */
+}
+
+
+.playlist-area {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.playlist-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.playlist-entry span {
+  flex-grow: 1;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"] {
+}
+
+hr {
+  color: black;
+  background-color: black;
+}
+
+.playlist-entry {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+  background-color: white;
+  cursor: move; /* Indicates that the item is movable */
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Styling the drag handle if used */
+.drag-handle {
+  cursor: move;
+}

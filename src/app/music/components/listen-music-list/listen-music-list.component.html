@@ -1,0 +1,25 @@
+<h2>Music Library</h2>
+<div class="music-grid">
+    <div *ngFor="let song of musicList; let i = index" class="music-card">
+        <h3 class="song-title">{{ song.title }}</h3>
+        <p class="song-tags">
+            <ng-container *ngFor="let tag of song.tags">
+                <span class="tag">{{ tag.name }}</span>
+            </ng-container>
+        </p>
+        <div class="row">
+
+            <button (click)="toggleRepeat(i)" class="repeat-button">
+            <span class="material-icons">
+                {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
+            </span>
+            </button>
+            <audio controls
+                   [src]="song.filePath"
+                   class="audio-player"
+                   #audioPlayer
+                   (ended)="handleSongEnd(i)">
+            </audio>
+        </div>
+    </div>
+</div>
