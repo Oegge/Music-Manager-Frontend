@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaylistDto } from '../../../Dto/base';
+import { PlaylistDto } from '../../../dto/base';
 import { PlaylistService } from '../../services/playlist.service';
-import { NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
-
-import { ModalComponent } from '../../basic/modal/modal.component';
 
 @Component({
     selector: 'app-overview',
-    imports: [NgForOf, ModalComponent],
+    standalone: false,
     templateUrl: './overview.component.html',
     styleUrl: './overview.component.css',
 })

@@ -7,10 +7,11 @@ import {
 } from '@angular/core';
 import { PlaylistService } from '../../services/playlist.service';
 import { ActivatedRoute } from '@angular/router';
-import { PlaylistDto, SongDto } from '../../../Dto/base';
+import { PlaylistDto, SongDto } from '../../../dto/base';
 import { NgForOf } from '@angular/common';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+import { FileService } from '../../services/file.service';
 
 @Component({
     selector: 'app-playlist',
@@ -31,6 +32,7 @@ export class PlaylistComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private playlistService: PlaylistService,
+        public fileService: FileService,
     ) {}
 
     ngOnInit() {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from '../../../../Dto/base';
+import { Tag } from '../../../../dto/base';
 import { MusicService } from '../../../services/music.service';
-import { FormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
 
 @Component({
     selector: 'app-upload-music',

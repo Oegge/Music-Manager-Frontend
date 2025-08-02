@@ -6,34 +6,16 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../services/music.service';
-import { SongDto, Tag } from '../../../Dto/base';
-import { NgForOf, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
-import { MatOption, MatSelect } from '@angular/material/select';
-import {
-    CdkDrag,
-    CdkDragDrop,
-    CdkDropList,
-    moveItemInArray,
-} from '@angular/cdk/drag-drop';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { SongDto, Tag } from '../../../dto/base';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
+import { FileService } from '../../services/file.service';
 
 @Component({
     selector: 'app-create',
     templateUrl: './create.component.html',
-    imports: [
-        FormsModule,
-        NgForOf,
-        MatFormField,
-        MatSelect,
-        MatOption,
-        CdkDropList,
-        CdkDrag,
-        MatSlideToggle,
-    ],
+    standalone: false,
     styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
@@ -50,6 +32,7 @@ export class CreateComponent implements OnInit {
         private musicService: MusicService,
         private playlistService: PlaylistService,
         private router: Router,
+        public fileService: FileService,
     ) {}
 
     ngOnInit(): void {

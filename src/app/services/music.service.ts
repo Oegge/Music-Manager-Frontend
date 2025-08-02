@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SongDto, Tag } from '../../Dto/base';
+import { SongDto, Tag } from '../../dto/base';
 import { environment } from '../../environments/environment';
 
 @Injectable({

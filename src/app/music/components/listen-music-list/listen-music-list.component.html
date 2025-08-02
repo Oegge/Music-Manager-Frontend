@@ -15,7 +15,7 @@
             </span>
             </button>
             <audio controls
-                   [src]="song.filePath"
+                   [src]="fileService.getFileUrl(song.filePath)"
                    class="audio-player"
                    #audioPlayer
                    (ended)="handleSongEnd(i)">

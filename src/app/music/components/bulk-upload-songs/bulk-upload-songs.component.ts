@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 import { MusicService } from '../../../services/music.service';
-import { Song, Tag } from '../../../../Dto/base';
+import { Song, Tag } from '../../../../dto/base';
 import { MatFormField } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';

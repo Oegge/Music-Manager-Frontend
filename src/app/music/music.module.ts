@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MusicRoutingModule } from './music-routing.module';
 import { MusicListComponent } from './components/music-list/music-list.component';
 import { UploadMusicComponent } from './components/upload-music/upload-music.component';
@@ -10,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-upload-songs.component';
+import { BasicModule } from '../basic/basic.module';
 
 @NgModule({
     declarations: [
@@ -26,6 +26,7 @@ import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-up
         MatFormFieldModule,
         MatInputModule,
         NgxMatSelectSearchModule,
+        BasicModule,
     ],
 })
 export class MusicModule {}

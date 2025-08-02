@@ -10,14 +10,12 @@ import {
     TemplateRef,
     ViewContainerRef,
 } from '@angular/core';
-import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.css'],
-    standalone: true,
-    imports: [NgIf, NgTemplateOutlet, NgStyle, NgClass],
+    standalone: false,
 })
 export class ModalComponent implements AfterViewInit {
     @ContentChild('trigger') triggerTemplate!: TemplateRef<any>;

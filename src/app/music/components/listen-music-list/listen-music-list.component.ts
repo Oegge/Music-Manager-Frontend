@@ -8,7 +8,8 @@ import {
 import { NgForOf } from '@angular/common';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MusicService } from '../../../services/music.service';
-import { SongDto, Tag } from '../../../../Dto/base';
+import { SongDto, Tag } from '../../../../dto/base';
+import { FileService } from '../../../services/file.service';
 
 @Component({
     selector: 'app-listen-music-list',
@@ -18,12 +19,15 @@ import { SongDto, Tag } from '../../../../Dto/base';
 })
 export class ListenMusicListComponent implements OnInit {
     musicList: SongDto[] = [];
-    availableTags: Tag[] = []; // Tags fetched from the backend
-    filteredTags: Tag[][] = []; // Per-song filtered tags
-    repeatIndex: number | null = null; // To keep track of which song to repeat
+    availableTags: Tag[] = [];
+    filteredTags: Tag[][] = [];
+    repeatIndex: number | null = null;
     @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
 
-    constructor(private musicService: MusicService) {
+    constructor(
+        private musicService: MusicService,
+        public fileService: FileService,
+    ) {
         this.fetchTags();
         this.loadMusic();
     }

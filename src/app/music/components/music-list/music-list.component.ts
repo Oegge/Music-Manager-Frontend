@@ -1,8 +1,9 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MusicService } from '../../../services/music.service';
-import { SongDto, Tag } from '../../../../Dto/base';
+import { SongDto, Tag } from '../../../../dto/base';
 import { ElementRef } from '@angular/core';
+import { FileService } from '../../../services/file.service';
 
 @Component({
     selector: 'app-music-list',
@@ -22,7 +23,10 @@ export class MusicListComponent implements OnInit {
     private allSongs: SongDto[] = [];
     useAndFilter: boolean = false;
 
-    constructor(private musicService: MusicService) {
+    constructor(
+        private musicService: MusicService,
+        public fileService: FileService,
+    ) {
         this.fetchTags();
         this.loadMusic();
     }
