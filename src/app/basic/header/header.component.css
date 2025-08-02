@@ -1,0 +1,115 @@
+.wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  height: clamp(50px, 8vh, 300px);
+  box-sizing: border-box;
+  padding: 0 2rem;
+  background: var(--background-color-solid);
+  border-bottom: 1px solid var(--border-color-solid);
+  font-size: calc(clamp(50px, 8vh, 300px) * 0.3);
+}
+
+.logo {
+  height: 90%;
+  width: auto;
+  object-fit: contain;
+  padding: 0 1rem;
+}
+
+nav {
+  height: 100%;
+}
+
+.menu {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+  gap: 0;
+}
+
+.menu-item {
+  position: relative;
+  min-width: 120px;
+}
+
+.menu-item + .menu-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: 50%;
+  top: 25%;
+  width: 1px;
+  background: var(--border-color-solid);
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 1rem;
+  text-decoration: none;
+  color: var(--text-color-solid);
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.menu-link:hover,
+.menu-link:focus {
+  background-color: var(--background-color-hover-solid);
+  color: var(--text-color-highlight-solid);
+}
+
+.sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0.25rem 0;
+  list-style: none;
+  background: var(--background-color-solid);
+  border: 1px solid var(--border-color-solid);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.menu-item:hover > .sub-menu,
+.menu-item:focus-within > .sub-menu {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.sub-item {
+  padding: 0;
+}
+
+.sub-item .menu-link {
+  height: auto;
+  padding: 0.5rem 1rem;
+  justify-content: flex-start;
+}
+
+.sub-menu {
+  white-space: nowrap;
+}
+
+.menu-link:focus-visible {
+  outline: 2px solid var(--text-color-highlight-solid);
+  outline-offset: 2px;
+}

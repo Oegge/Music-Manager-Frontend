@@ -1,66 +1,67 @@
-<h2>Music Tagging Page</h2>
+<div class="heading-m">Music Tagging</div>
 <div class="search-filter-area">
-  <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
-         (input)="applyFilters()">
+    <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
+           (input)="applyFilters()">
 
-  <mat-form-field appearance="fill">
-    <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
-      <mat-option *ngFor="let tag of availableTags" [value]="tag">
-        {{ tag.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
+            <mat-option *ngFor="let tag of availableTags" [value]="tag">
+                {{ tag.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
 
 </div>
 <div class="music-grid">
-  <div *ngFor="let song of musicList; let i = index" class="music-card"
-       [class.active]="currentIndex === i">
-    <h3 class="song-title">{{ song.title }}</h3>
-    <p class="song-tags">
-      <ng-container *ngFor="let tag of song.tags">
-        <span class="tag">{{ tag.name }}</span>
-      </ng-container>
-    </p>
-    <div class="row">
+    <div *ngFor="let song of musicList; let i = index" class="music-card"
+         [class.active]="currentIndex === i">
+        <h3 class="song-title">{{ song.title }}</h3>
+        <p class="song-tags">
+            <ng-container *ngFor="let tag of song.tags">
+                <span class="tag">{{ tag.name }}</span>
+            </ng-container>
+        </p>
+        <div class="row">
 
-      <button (click)="toggleRepeat(i)" class="repeat-button">
-            <span class="material-icons">
-                {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
-            </span>
-      </button>
+            <button (click)="toggleRepeat(i)" class="repeat-button">
+        <span class="material-icons">
+            {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
+        </span>
+            </button>
 
-      <audio controls
-             [src]="fileService.getFileUrl(song.filePath)"
-             class="audio-player"
-             preload="none"
-             #audioPlayer
-             (ended)="handleSongEnd(i)"
-             (play)="currentIndex=i">
-      </audio>
+            <audio controls
+                   [src]="fileService.getFileUrl(song.filePath)"
+                   class="audio-player"
+                   preload="none"
+                   #audioPlayer
+                   (ended)="handleSongEnd(i)"
+                   (play)="currentIndex=i">
+            </audio>
+        </div>
+        <mat-form-field class="tag-selector">
+            <mat-select
+                    [formControl]="song.selectedTagsControl"
+                    multiple
+                    placeholder="Select tags"
+                    class="select"
+                    (selectionChange)="updateTags(song, $event)"
+            >
+                <mat-option class="select2-results__option--selectable">
+                    <ngx-mat-select-search
+                            [formControl]="song.tagSearchControl"
+                            placeholderLabel="Search tags"
+                            noEntriesFoundLabel="No tags found"
+                    ></ngx-mat-select-search>
+                </mat-option>
+                <mat-option
+                        *ngFor="let tag of filteredTags.get(song.id)"
+                        [value]="tag"
+                >
+                    {{ tag.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
-    <mat-form-field class="tag-selector">
-      <mat-select
-        [formControl]="song.selectedTagsControl"
-        multiple
-        placeholder="Select tags"
-        class="select"
-        (selectionChange)="updateTags(song, $event)"
-      >
-        <mat-option class="select2-results__option--selectable">
-          <ngx-mat-select-search
-            [formControl]="song.tagSearchControl"
-            placeholderLabel="Search tags"
-            noEntriesFoundLabel="No tags found"
-          ></ngx-mat-select-search>
-        </mat-option>
-        <mat-option
-          *ngFor="let tag of filteredTags.get(song.id)"
-          [value]="tag"
-        >
-          {{ tag.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
 </div>
+

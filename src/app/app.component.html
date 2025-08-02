@@ -1,27 +1,7 @@
-<nav>
-    <ul>
-        <li>
-            <a href="#">Music</a>
-            <ul>
-                <li><a routerLink="/music/listen">Music Library</a></li>
-                <li><a routerLink="/music">Music Tagging</a></li>
-                <li><a routerLink="/music/bulk-upload">Upload Music</a></li>
-            </ul>
-        </li>
-      <li>
-            <a routerLink="/campaign">Campaigns</a>
-            <ul>
-                <li><a routerLink="/campaign">Campaign Library</a></li>
-                </ul>
-        </li>
-        <li>
-            <a href="/playlist/overview">Playlists</a>
-            <ul>
-                <li><a routerLink="/playlist">Create</a></li>
-                <li><a routerLink="/playlist/overview">overview</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+<app-header></app-header>
+<div class="page">
+    <div class="page-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
 
-<router-outlet></router-outlet>

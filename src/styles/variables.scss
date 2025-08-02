@@ -1,37 +1,51 @@
 ﻿:root {
-  --bg-color: hsla(191.3, 84.5%, 40.6%, 1);
-  --header-color: hsla(155.3, 35.1%, 55.3%, 1);
-  --shield-fill-color: hsla(0.0, 56.8%, 47.3%, 1);
-  --border-color: hsla(0.0, 59.8%, 35.1%, 1);
-  --border-color--rgb: hsla(0.0, 56.8%, 47.3%, 1);
-  --border-color-hover: hsla(0.0, 56.8%, 47.3%, 0.8);
+  --above-green : hsl(110, 40%, 30%);
+  --above-green-translucent : hsla(110, 40%, 30%, 0.5);
+  --above-green-darker : hsl(110, 40%, 15%);
 
-  --ability-score-color: hsla(0.0, 0.0%, 100.0%, 1);
-  --background-ability: hsla(0.0, 0.0%, 0.0%, 0.5);
-  --background-ability-opaque: hsla(0.0, 0.0%, 0.0%, 1);
+  --above-blue : hsl(200, 40%, 30%);
+  --above-blue-translucent : hsla(200, 40%, 30%, 0.5);
+  --above-blue-darker : hsl(200, 40%, 15%);
 
-  --proficiency-color: hsla(0.0, 67.3%, 50.8%, 1);
-  --input-text-color: hsla(0.0, 0.0%, 86.7%, 1);
+  --border-color-solid: hsla(0.0, 60%, 35%, 1);
+  --border-color-translucent: hsla(0.0, 60%, 35%, 0.5);
+  --border-color-hover: hsla(0.0, 55%, 50%, 0.8);
+
+  --shield-fill-color: hsla(0.0, 55%, 50%, 1);
+  --ability-score-color: hsla(0.0, 0.0%, 95.0%, 1);
+  --background-ability-translucent: hsla(0.0, 0.0%, 0.0%, 0.5);
+  --background-ability-solid: hsla(0.0, 0.0%, 0.0%, 1);
+
+  --proficiency-color: hsla(0.0, 65%, 50%, 1);
+  --input-text-color: hsla(0.0, 0.0%, 90%, 1);
   --text-color-ui: hsla(240.0, 0.0%, 80%, 1);
-  --text-color-solid: hsla(0.0, 0.0%, 99.2%, 1);
-  --text-color-highlight-solid: hsla(0.0, 74.8%, 50.2%, 1);
-  --text-color-translucent: hsla(0.0, 0.0%, 100.0%, 0.8);
+  --text-color-ui-darker: hsla(240.0, 0.0%, 50%, 1);
+  --text-color-solid: hsl(30, 20%, 90%);
+  --text-color-highlight-solid: hsla(0.0, 75%, 50%, 1);
+  --text-color-translucent: hsla(30, 20%, 90%, 0.8);
 
   --background-color-translucent: hsla(0.0, 0.0%, 0.0%, 0.7);
-  --background-color-solid: hsl(0.0, 0.0%, 17.3%);
-  --background-color-hover-translucent: hsla(0.0, 0.0%, 53.3%, 0.7);
-  --background-color-hover-solid: hsl(0.0, 0.0%, 37.6%);
+  --background-color-solid: hsl(0.0, 0.0%, 20%);
+  --background-color-hover-translucent: hsla(0.0, 0.0%, 45%, 0.7);
+  --background-color-hover-solid: hsl(0.0, 0.0%, 30%);
+  --background-color-darker-solid: hsl(0.0, 0.0%, 13%);
+
+  --background-secondary-color-translucent: hsla(0.0, 45%, 15%, 0.7);
+  --background-secondary-color-solid: hsl(0, 45%, 15%);
+  --background-secondary-color-hover-translucent: hsla(0.0, 45%, 30%, 0.7);
+  --background-secondary-color-hover-solid: hsl(0.0, 45%, 30%);
 
   --shadow-color: hsla(0.0, 0.0%, 0.0%, 0.3);
-  --backdrop-shade: hsla(0.0, 0.0%, 0.2%, 0.6);
+  --shadow-color-bright: hsla(0.0, 0.0%, 80%, 0.3);
+  --backdrop-shade: hsla(0.0, 0.0%, 0.0%, 0.6);
 
-  --button-color-solid: hsl(0, 80%, 20%);
-  --button-color-translucent: hsla(0, 80%, 20%, 0.5);
-  --button-color-hover-solid: hsl(0, 80%, 50%);
-  --button-color-hover-translucent: hsla(0, 50%, 50%, 0.5);
+  --button-color-solid: hsl(0, 80%, 40%);
+  --button-color-translucent: hsla(0, 80%, 40%, 0.5);
+  --button-color-hover-solid: hsl(0, 80%, 20%);
+  --button-color-hover-translucent: hsla(0, 50%, 20%, 0.5);
 
-  --button-secondary-color-solid: hsl(100, 0%, 30%);
-  --button-secondary-color-translucent: hsla(100, 0%, 30%, 0.5);
-  --button-secondary-color-hover-solid: hsl(100, 0%, 40%);
-  --button-secondary-color-hover-translucent: hsla(100, 0%, 40%, 0.5);
+  --button-secondary-color-solid: hsl(100, 0%, 40%);
+  --button-secondary-color-translucent: hsla(100, 0%, 40%, 0.5);
+  --button-secondary-color-hover-solid: hsl(100, 0%, 30%);
+  --button-secondary-color-hover-translucent: hsla(100, 0%, 30%, 0.5);
 }

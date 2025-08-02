@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Bulk Upload Songs</h2>
+    <div class="heading-m">Bulk Upload Songs</div>
     <input type="file" (change)="onFilesSelected($event)" multiple />
 
     <div *ngFor="let song of songs; let i = index" class="song-entry">

@@ -7,7 +7,7 @@ import { ListenMusicListComponent } from './components/listen-music-list/listen-
 
 const routes: Routes = [
     { path: 'bulk-upload', component: BulkUploadSongsComponent },
-    { path: '', component: MusicListComponent },
+    { path: 'tag', component: MusicListComponent },
     { path: 'listen', component: ListenMusicListComponent },
     { path: 'upload', component: UploadMusicComponent },
 ];
