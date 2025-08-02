@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MusicListComponent } from './components/music-list/music-list.component';
+import { MusicTaggingComponent } from './components/music-tagging/music-tagging.component';
 import { UploadMusicComponent } from './components/upload-music/upload-music.component';
 import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-upload-songs.component';
-import { ListenMusicListComponent } from './components/listen-music-list/listen-music-list.component';
+import { MusicLibraryComponent } from './components/listen-music-list/music-library.component';
 
 const routes: Routes = [
     { path: 'bulk-upload', component: BulkUploadSongsComponent },
-    { path: 'tag', component: MusicListComponent },
-    { path: 'listen', component: ListenMusicListComponent },
+    { path: 'tag', component: MusicTaggingComponent },
+    { path: 'listen', component: MusicLibraryComponent },
     { path: 'upload', component: UploadMusicComponent },
 ];
 

@@ -6,12 +6,12 @@ import { ElementRef } from '@angular/core';
 import { FileService } from '../../../services/file.service';
 
 @Component({
-    selector: 'app-music-list',
-    templateUrl: './music-list.component.html',
-    styleUrls: ['./music-list.component.css'],
+    selector: 'app-music-tagging',
+    templateUrl: './music-tagging.component.html',
+    styleUrls: ['./music-tagging.component.css'],
     standalone: false,
 })
-export class MusicListComponent implements OnInit {
+export class MusicTaggingComponent implements OnInit {
     musicList: SongDto[] = [];
     availableTags: Tag[] = []; // Tags fetched from the backend
     filteredTags = new Map<string, Tag[]>();

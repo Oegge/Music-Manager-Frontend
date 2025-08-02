@@ -59,8 +59,7 @@ nav {
   white-space: nowrap;
 }
 
-.menu-link:hover,
-.menu-link:focus {
+.menu-link:hover {
   background-color: var(--background-color-hover-solid);
   color: var(--text-color-highlight-solid);
 }
@@ -87,8 +86,7 @@ nav {
   pointer-events: none;
 }
 
-.menu-item:hover > .sub-menu,
-.menu-item:focus-within > .sub-menu {
+.menu-item:hover > .sub-menu{
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
@@ -107,9 +105,4 @@ nav {
 
 .sub-menu {
   white-space: nowrap;
-}
-
-.menu-link:focus-visible {
-  outline: 2px solid var(--text-color-highlight-solid);
-  outline-offset: 2px;
 }

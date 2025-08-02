@@ -12,12 +12,12 @@ import { SongDto, Tag } from '../../../../dto/base';
 import { FileService } from '../../../services/file.service';
 
 @Component({
-    selector: 'app-listen-music-list',
-    imports: [NgForOf, NgxMatSelectSearchModule],
-    templateUrl: './listen-music-list.component.html',
-    styleUrl: '../music-list/music-list.component.css',
+    selector: 'app-music-library',
+    standalone: false,
+    templateUrl: './music-library.component.html',
+    styleUrl: '../music-tagging/music-tagging.component.css',
 })
-export class ListenMusicListComponent implements OnInit {
+export class MusicLibraryComponent implements OnInit {
     musicList: SongDto[] = [];
     availableTags: Tag[] = [];
     filteredTags: Tag[][] = [];
