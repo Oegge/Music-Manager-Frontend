@@ -3,8 +3,11 @@
     <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
            (input)="applyFilters()">
 
-    <mat-form-field appearance="fill">
-        <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
+    <mat-form-field>
+        <mat-label>Filter Tags</mat-label>
+        <mat-select multiple
+                     [(ngModel)]="selectedTags"
+                     (selectionChange)="applyFilters()">
             <mat-option *ngFor="let tag of availableTags" [value]="tag">
                 {{ tag.name }}
             </mat-option>

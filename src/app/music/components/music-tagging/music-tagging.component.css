@@ -8,7 +8,12 @@
   padding: 16px;
 }
 
-/* Music Card Styles */
+.search-filter-area{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
 .music-card {
   display: flex;
   flex-direction: column;
@@ -56,11 +61,13 @@
   width: 100%;
   outline: none;
 }
+
 @media (max-width: 2200px) {
   .music-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
 @media (max-width: 1600px) {
   .music-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -85,7 +92,7 @@
   border: none;
   cursor: pointer;
   color: var(--text-color-solid);
-  font-size: 24px; /* Larger icon size */
+  font-size: 24px;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -94,4 +101,12 @@
 
 .repeat-button:hover {
   color: var(--text-color-highlight-solid);
+}
+
+.tag-filter{
+
+}
+
+.name-filter{
+
 }
