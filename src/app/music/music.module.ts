@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-upload-songs.component';
 import { BasicModule } from '../basic/basic.module';
-import { MusicLibraryComponent } from './components/listen-music-list/music-library.component';
+import { MusicLibraryComponent } from './components/music-library/music-library.component';
 
 @NgModule({
     declarations: [
