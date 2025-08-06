@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from '../../../../dto/base';
 import { MusicService } from '../../../services/music.service';
 
 @Component({
@@ -8,12 +7,12 @@ import { MusicService } from '../../../services/music.service';
     templateUrl: './upload-music.component.html',
 })
 export class UploadMusicComponent implements OnInit {
-    availableTags: Tag[] = []; // Tags fetched from the backend
-    selectedTagId: string | null = null; // Holds the ID of the selected tag
+    availableTags: string[] = []; // Tags fetched from the backend
+    selectedTag: string | null = null;
     song = {
         title: '',
         artist: '',
-        tags: [] as Tag[], // List of selected tags
+        tags: [] as string[], // List of selected tags
     };
     selectedFile: File | null = null;
 
@@ -44,18 +43,15 @@ export class UploadMusicComponent implements OnInit {
 
     addTag(): void {
         const selectedTag = this.availableTags.find(
-            (tag) => tag.id === this.selectedTagId,
+            (tag) => tag === this.selectedTag,
         );
-        if (
-            selectedTag &&
-            !this.song.tags.some((tag) => tag.id === selectedTag.id)
-        ) {
+        if (selectedTag && !this.song.tags.some((tag) => tag === selectedTag)) {
             this.song.tags.push(selectedTag);
         }
     }
 
-    removeTag(tag: Tag): void {
-        this.song.tags = this.song.tags.filter((t) => t.id !== tag.id);
+    removeTag(tag: string): void {
+        this.song.tags = this.song.tags.filter((t) => t !== tag);
     }
 
     onSubmit(): void {

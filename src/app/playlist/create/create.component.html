@@ -18,7 +18,7 @@
         <mat-form-field appearance="fill">
           <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
             <mat-option *ngFor="let tag of availableTags" [value]="tag">
-              {{ tag.name }}
+              {{ tag }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -26,7 +26,7 @@
 
       </div>
       <div class="tags-container">
-        <span *ngFor="let tag of selectedTags" class="tag">{{ tag.name }}</span> <!-- Inline tags -->
+        <span *ngFor="let tag of selectedTags" class="tag">{{ tag }}</span>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
       <div *ngFor="let song of musicList; let i = index" class="song-entry">
         <span>{{ song.title }}</span> <!-- Song title -->
         <div class="tags-container">
-          <span *ngFor="let tag of song.tags" class="tag">{{ tag.name }}</span> <!-- Inline tags -->
+          <span *ngFor="let tag of song.tags" class="tag">{{ tag }}</span>
         </div>
         <button (click)="addToPlaylist(song)">Add</button>
         <audio controls

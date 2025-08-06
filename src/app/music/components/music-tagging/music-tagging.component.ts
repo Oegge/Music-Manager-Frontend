@@ -1,9 +1,6 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { MusicService } from '../../../services/music.service';
-import { SongDto, Tag } from '../../../../dto/base';
-import { ElementRef } from '@angular/core';
-import { FileService } from '../../../services/file.service';
+import { SongDto } from '../../../../dto/base';
 
 @Component({
     selector: 'app-music-tagging',
@@ -12,143 +9,34 @@ import { FileService } from '../../../services/file.service';
     standalone: false,
 })
 export class MusicTaggingComponent implements OnInit {
-    musicList: SongDto[] = [];
-    availableTags: Tag[] = []; // Tags fetched from the backend
-    filteredTags = new Map<string, Tag[]>();
-    repeatIndex: number | null = null; // To keep track of which song to repeat
-    currentIndex: number | null = null; // To keep track of which song to repeat
-    @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
+    allSongs: SongDto[] = [];
+    selectedSongs: SongDto[] = [];
+    availableTags: string[] = [];
+    filteredTags: string[] = [];
     searchText: string = '';
-    selectedTags: Tag[] = [];
-    private allSongs: SongDto[] = [];
-    useAndFilter: boolean = false;
+    useAndFilterForTags: boolean = false;
+    playingSong: string = '';
 
-    constructor(
-        private musicService: MusicService,
-        public fileService: FileService,
-    ) {
+    constructor(private musicService: MusicService) {}
+
+    ngOnInit(): void {
         this.fetchTags();
         this.loadMusic();
     }
 
-    ngOnInit(): void {}
-
-    toggleRepeat(index: number): void {
-        if (this.repeatIndex === index) {
-            this.repeatIndex = null; // Turn off repeat if already set
-        } else {
-            this.repeatIndex = index; // Set repeat to this song
-        }
+    activateSong(songId: string): void {
+        this.playingSong = songId;
     }
 
-    handleSongEnd(index: number): void {
-        if (this.repeatIndex !== null && this.repeatIndex === index) {
-            this.playSong(index); // Repeat the same song
-        } else {
-            this.playNextSong(index); // Play the next song
-        }
-    }
-
-    playSong(index: number): void {
-        this.currentIndex = index;
-        const player = this.audioPlayers.toArray()[index].nativeElement;
-        player.play();
-    }
-
-    playNextSong(currentIndex: number): void {
-        let nextIndex = (currentIndex + 1) % this.musicList.length;
-        this.playSong(nextIndex);
-    }
-
-    fetchTags(): void {
-        this.musicService.getTags().subscribe(
-            (tags) => {
-                this.availableTags = tags;
-            },
-            (error) => {
-                console.error('Error fetching tags:', error);
-            },
-        );
-    }
-
-    loadMusic(): void {
-        this.musicService.getMusicList().subscribe({
-            next: (data) => {
-                this.allSongs = data.map((song: SongDto) => ({
-                    ...song,
-                    selectedTagsControl: new FormControl(
-                        this.mapTagsToAvailableTags(song.tags), // Map tags to match availableTags
-                    ),
-                    tagSearchControl: new FormControl(''),
-                }));
-                // Initialize filteredTags for each song
-                this.allSongs.forEach((song) =>
-                    this.filteredTags.set(song.id, [...this.availableTags]),
-                );
-
-                // Subscribe to search control changes for filtering
-                this.allSongs.forEach((song: SongDto) => {
-                    song.tagSearchControl.valueChanges.subscribe(
-                        (searchText) => {
-                            this.filteredTags.set(
-                                song.id,
-                                this.filterTags(searchText),
-                            );
-                        },
-                    );
-                });
-                this.musicList = this.allSongs;
-            },
-            error: (error) => {
-                console.error('Failed to load music list', error);
-            },
-        });
-    }
-
-    mapTagsToAvailableTags(tags: Tag[]): Tag[] {
-        // Ensure the tags are the same references as in availableTags
-        return tags.map(
-            (tag) =>
-                this.availableTags.find(
-                    (availableTag) => availableTag.id === tag.id,
-                ) || tag,
-        );
-    }
-
-    filterTags(searchText: string | null): Tag[] {
-        console.log(searchText);
-        if (!searchText) {
-            return this.availableTags;
-        }
-        return this.availableTags.filter((tag) =>
-            tag.name.toLowerCase().includes(searchText.toLowerCase()),
-        );
-    }
-
-    updateTags(song: SongDto, event: any): void {
-        const selectedTags: Tag[] = event.value; // Current selected tags
-
-        // Update the song's tags array with the new selection
-        song.tags = [...selectedTags].sort((a, b) =>
-            a.name.localeCompare(b.name),
-        );
-
-        this.musicService.updateTags(song).subscribe(
-            (response) => {
-                console.log('Tags updated successfully:', response);
-            },
-            (error) => {
-                console.error('Failed to update tags:', error);
-            },
-        );
-
-        console.log('Updated Tags:', song.tags);
+    playNextSong(currentSongId: string): void {
+        const index = this.getSongIndex(currentSongId);
+        let nextIndex = (index + 1) % this.selectedSongs.length;
+        this.activateSong(this.selectedSongs[nextIndex].id);
     }
 
     applyFilters(): void {
         let filteredSongs = this.allSongs;
 
-        // Apply search text filter
         if (this.searchText) {
             filteredSongs = filteredSongs.filter((song) =>
                 song.title
@@ -156,6 +44,49 @@ export class MusicTaggingComponent implements OnInit {
                     .includes(this.searchText.toLowerCase()),
             );
         }
-        this.musicList = filteredSongs;
+        if (this.filteredTags.length > 0) {
+            filteredSongs = filteredSongs.filter((song) =>
+                this.useAndFilterForTags
+                    ? song.tags.every((tag) => this.filteredTags.includes(tag))
+                    : song.tags.some((tag) => this.filteredTags.includes(tag)),
+            );
+        }
+        this.selectedSongs = filteredSongs;
+    }
+
+    private fetchTags(): void {
+        this.musicService.getTags().subscribe({
+            next: (tags) => {
+                this.availableTags = tags;
+            },
+            error: (error) => {
+                console.error('Error fetching tags:', error);
+            },
+        });
+    }
+
+    private loadMusic(): void {
+        this.musicService.getMusicList().subscribe({
+            next: (data) => {
+                this.allSongs = data as SongDto[];
+                this.applyFilters();
+            },
+            error: (error) => {
+                console.error('Failed to load music list', error);
+            },
+        });
+    }
+
+    private filterTags(searchText: string | null): string[] {
+        if (!searchText) {
+            return this.availableTags;
+        }
+        return this.availableTags.filter((tag) =>
+            tag.toLowerCase().includes(searchText.toLowerCase()),
+        );
+    }
+
+    private getSongIndex(songId: string): number {
+        return this.selectedSongs.findIndex((song) => song.id === songId);
     }
 }

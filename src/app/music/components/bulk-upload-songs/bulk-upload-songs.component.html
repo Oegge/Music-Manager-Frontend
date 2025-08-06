@@ -32,8 +32,8 @@
                     </mat-option>
 
                     <!-- List of mat-options -->
-                    <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag.id">
-                        {{ tag.name }}
+                    <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag">
+                        {{ tag }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

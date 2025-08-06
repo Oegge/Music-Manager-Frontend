@@ -1,15 +1,10 @@
 import { FormControl } from '@angular/forms';
 
-export interface Tag {
-    id: string;
-    name: string;
-}
-
 export interface UploadSongRequest {
     file: File;
     title: string;
     artist: string;
-    tags: Tag[];
+    tags: string[];
 }
 
 export interface Song {
@@ -17,16 +12,14 @@ export interface Song {
     title: string;
     selectedTagsControl: FormControl;
     tagSearchControl: FormControl;
-    tags: Tag[];
+    tags: string[];
 }
 
 export interface SongDto {
     id: string;
     filePath: string;
     title: string;
-    selectedTagsControl: FormControl;
-    tagSearchControl: FormControl;
-    tags: Tag[];
+    tags: string[];
 }
 
 export interface PlaylistDto {

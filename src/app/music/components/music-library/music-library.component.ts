@@ -5,10 +5,8 @@ import {
     QueryList,
     ViewChildren,
 } from '@angular/core';
-import { NgForOf } from '@angular/common';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MusicService } from '../../../services/music.service';
-import { SongDto, Tag } from '../../../../dto/base';
+import { SongDto } from '../../../../dto/base';
 import { FileService } from '../../../services/file.service';
 
 @Component({
@@ -19,8 +17,8 @@ import { FileService } from '../../../services/file.service';
 })
 export class MusicLibraryComponent implements OnInit {
     musicList: SongDto[] = [];
-    availableTags: Tag[] = [];
-    filteredTags: Tag[][] = [];
+    availableTags: string[] = [];
+    filteredTags: string[][] = [];
     repeatIndex: number | null = null;
     @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
 
@@ -48,21 +46,7 @@ export class MusicLibraryComponent implements OnInit {
     loadMusic(): void {
         this.musicService.getMusicList().subscribe({
             next: (data) => {
-                this.musicList = data.map((song: SongDto) => ({
-                    ...song,
-                }));
-
-                // Initialize filteredTags for each song
-                this.filteredTags = this.musicList.map((): Tag[] => [
-                    ...this.availableTags,
-                ]);
-
-                // Subscribe to search control changes for filtering
-                this.musicList.forEach((song: SongDto, i) => {
-                    song.tagSearchControl.valueChanges.subscribe(
-                        (searchText) => {},
-                    );
-                });
+                this.musicList = data;
             },
             error: (error) => {
                 console.error('Failed to load music list', error);

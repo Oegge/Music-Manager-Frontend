@@ -6,7 +6,7 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../services/music.service';
-import { SongDto, Tag } from '../../../dto/base';
+import { SongDto } from '../../../dto/base';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
@@ -21,8 +21,8 @@ import { FileService } from '../../services/file.service';
 export class CreateComponent implements OnInit {
     musicList: SongDto[] = [];
     playlist: SongDto[] = [];
-    availableTags: Tag[] = [];
-    selectedTags: Tag[] = [];
+    availableTags: string[] = [];
+    selectedTags: string[] = [];
     playlistName: string = '';
     searchText: string = '';
     private allSongs: SongDto[] = [];
@@ -72,14 +72,14 @@ export class CreateComponent implements OnInit {
                 // AND logic: every selected tag must be present
                 filteredSongs = filteredSongs.filter((song) => {
                     return this.selectedTags.every((tag) =>
-                        song.tags.map((t) => t.id).includes(tag.id),
+                        song.tags.includes(tag),
                     );
                 });
             } else {
                 // OR logic: any of the selected tags may be present
                 filteredSongs = filteredSongs.filter((song) => {
-                    return song.tags.some((tag) =>
-                        this.selectedTags.map((t) => t.id).includes(tag.id),
+                    return this.selectedTags.some((tag) =>
+                        song.tags.includes(tag),
                     );
                 });
             }

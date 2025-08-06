@@ -1,0 +1,90 @@
+.active {
+    background: var(--background-color-hover-translucent);
+}
+
+.audio-player {
+    display: block;
+    width: 100%;
+    outline: none;
+}
+
+.music-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--background-color-translucent);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    color: var(--text-color-solid);
+}
+
+.repeat-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color-solid);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.repeat-button:hover {
+    color: var(--text-color-highlight-solid);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.song-title {
+    font-size: 1rem;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.song-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.tag {
+    padding: 2px 6px;
+    border: 2px solid var(--border-color-solid);
+    border-radius: 12px;
+    background: var(--background-color-translucent);
+}
+
+@media (max-width: 2200px) {
+    .music-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1600px) {
+    .music-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .music-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .music-grid {
+        grid-template-columns: 1fr;
+    }
+}

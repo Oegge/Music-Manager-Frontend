@@ -6,16 +6,16 @@
     <input type="text" id="artist" name="artist" [(ngModel)]="song.artist" required />
 
     <label for="tags">Tags:</label>
-    <select style="width: 200px" id="tags" [(ngModel)]="selectedTagId" name="selectedTag">
-        <option *ngFor="let tag of availableTags" [value]="tag.id">
-            {{ tag.name }}
+    <select style="width: 200px" id="tags" [(ngModel)]="selectedTag" name="selectedTag">
+        <option *ngFor="let tag of availableTags" [value]="tag">
+            {{ tag }}
         </option>
     </select>
     <button type="button" (click)="addTag()">Add Tag</button>
 
     <ul>
         <li *ngFor="let tag of song.tags">
-            {{ tag.name }}
+            {{ tag }}
             <button type="button" (click)="removeTag(tag)">Remove</button>
         </li>
     </ul>

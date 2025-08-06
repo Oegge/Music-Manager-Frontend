@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+import { FormControl } from '@angular/forms';
 import { MusicService } from '../../../services/music.service';
-import { Song, Tag } from '../../../../dto/base';
-import { MatFormField } from '@angular/material/form-field';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { Song } from '../../../../dto/base';
 import { debounceTime } from 'rxjs';
 import {
     trigger,
@@ -31,9 +27,9 @@ import {
     standalone: false,
 })
 export class BulkUploadSongsComponent implements OnInit {
-    availableTags: Tag[] = []; // Tags fetched from the backend
+    availableTags: string[] = []; // Tags fetched from the backend
     songs: Song[] = [];
-    filteredTags: Tag[][] = [];
+    filteredTags: string[][] = [];
     selectedFiles: File[] | null = null;
 
     constructor(private musicService: MusicService) {}
@@ -79,12 +75,12 @@ export class BulkUploadSongsComponent implements OnInit {
         }
     }
 
-    filterTags(searchText: string | null): Tag[] {
+    filterTags(searchText: string | null): string[] {
         if (!searchText) {
             return this.availableTags;
         }
         return this.availableTags.filter((tag) =>
-            tag.name.toLowerCase().includes(searchText.toLowerCase()),
+            tag.toLowerCase().includes(searchText.toLowerCase()),
         );
     }
 
@@ -98,10 +94,10 @@ export class BulkUploadSongsComponent implements OnInit {
             // Create a JSON object for the metadata
             const metadata = {
                 title: song.title,
-                tags: song.selectedTagsControl.value.map(
-                    (tagId: string) =>
-                        this.availableTags.find((tag) => tag.id === tagId)
-                            ?.id || 'Unknown',
+                tags: song.selectedTagsControl.value.filter((tagName: string) =>
+                    this.availableTags.some(
+                        (existingTag) => tagName === existingTag,
+                    ),
                 ),
             };
 

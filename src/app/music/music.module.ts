@@ -11,6 +11,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-upload-songs.component';
 import { BasicModule } from '../basic/basic.module';
 import { MusicLibraryComponent } from './components/music-library/music-library.component';
+import { TaggableSongComponent } from './components/music-tagging/taggable-song/taggable-song.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { MusicLibraryComponent } from './components/music-library/music-library.
         MusicTaggingComponent,
         UploadMusicComponent,
         MusicLibraryComponent,
+        TaggableSongComponent,
     ],
     imports: [
         CommonModule,

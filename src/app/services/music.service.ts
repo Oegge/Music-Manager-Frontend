@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SongDto, Tag } from '../../dto/base';
+import { SongDto } from '../../dto/base';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,12 +12,12 @@ export class MusicService {
 
     constructor(private http: HttpClient) {}
 
-    getMusicList(): Observable<any[]> {
-        return this.http.get<any[]>(this.baseUrl);
+    getMusicList(): Observable<SongDto[]> {
+        return this.http.get<SongDto[]>(this.baseUrl);
     }
 
-    getTags(): Observable<Tag[]> {
-        return this.http.get<Tag[]>(`${this.baseUrl}/tags`);
+    getTags(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.baseUrl}/tags`);
     }
 
     uploadSong(request: FormData): Observable<any> {
