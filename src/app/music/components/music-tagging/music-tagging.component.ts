@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicService } from '../../../services/music.service';
-import { SongDto } from '../../../../dto/base';
+import { SongDto, Tag } from '../../../../dto/base';
 
 @Component({
     selector: 'app-music-tagging',
@@ -11,8 +11,8 @@ import { SongDto } from '../../../../dto/base';
 export class MusicTaggingComponent implements OnInit {
     allSongs: SongDto[] = [];
     selectedSongs: SongDto[] = [];
-    availableTags: string[] = [];
-    filteredTags: string[] = [];
+    availableTags: Tag[] = [];
+    filteredTags: Tag[] = [];
     searchText: string = '';
     useAndFilterForTags: boolean = false;
     playingSong: string = '';
@@ -47,8 +47,12 @@ export class MusicTaggingComponent implements OnInit {
         if (this.filteredTags.length > 0) {
             filteredSongs = filteredSongs.filter((song) =>
                 this.useAndFilterForTags
-                    ? song.tags.every((tag) => this.filteredTags.includes(tag))
-                    : song.tags.some((tag) => this.filteredTags.includes(tag)),
+                    ? song.tags.every((tag) =>
+                          this.filteredTags.some((f) => f.id === tag.id),
+                      )
+                    : song.tags.some((tag) =>
+                          this.filteredTags.some((f) => f.id === tag.id),
+                      ),
             );
         }
         this.selectedSongs = filteredSongs;
@@ -77,12 +81,12 @@ export class MusicTaggingComponent implements OnInit {
         });
     }
 
-    private filterTags(searchText: string | null): string[] {
+    private filterTags(searchText: string | null): Tag[] {
         if (!searchText) {
             return this.availableTags;
         }
         return this.availableTags.filter((tag) =>
-            tag.toLowerCase().includes(searchText.toLowerCase()),
+            tag.name.toLowerCase().includes(searchText.toLowerCase()),
         );
     }
 

@@ -7,6 +7,11 @@ export interface UploadSongRequest {
     tags: string[];
 }
 
+export interface Tag {
+    name: string;
+    id: string;
+}
+
 export interface Song {
     file: File;
     title: string;
@@ -19,7 +24,7 @@ export interface SongDto {
     id: string;
     filePath: string;
     title: string;
-    tags: string[];
+    tags: Tag[];
 }
 
 export interface PlaylistDto {

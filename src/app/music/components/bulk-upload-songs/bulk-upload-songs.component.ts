@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MusicService } from '../../../services/music.service';
-import { Song } from '../../../../dto/base';
+import { Song, Tag } from '../../../../dto/base';
 import { debounceTime } from 'rxjs';
 import {
     trigger,
@@ -27,9 +27,9 @@ import {
     standalone: false,
 })
 export class BulkUploadSongsComponent implements OnInit {
-    availableTags: string[] = []; // Tags fetched from the backend
+    availableTags: Tag[] = []; // Tags fetched from the backend
     songs: Song[] = [];
-    filteredTags: string[][] = [];
+    filteredTags: Tag[][] = [];
     selectedFiles: File[] | null = null;
 
     constructor(private musicService: MusicService) {}
@@ -75,12 +75,12 @@ export class BulkUploadSongsComponent implements OnInit {
         }
     }
 
-    filterTags(searchText: string | null): string[] {
+    filterTags(searchText: string | null): Tag[] {
         if (!searchText) {
             return this.availableTags;
         }
         return this.availableTags.filter((tag) =>
-            tag.toLowerCase().includes(searchText.toLowerCase()),
+            tag.name.toLowerCase().includes(searchText.toLowerCase()),
         );
     }
 
@@ -96,7 +96,7 @@ export class BulkUploadSongsComponent implements OnInit {
                 title: song.title,
                 tags: song.selectedTagsControl.value.filter((tagName: string) =>
                     this.availableTags.some(
-                        (existingTag) => tagName === existingTag,
+                        (existingTag) => tagName === existingTag.name,
                     ),
                 ),
             };

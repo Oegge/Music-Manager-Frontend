@@ -6,7 +6,7 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../../services/music.service';
-import { SongDto } from '../../../../dto/base';
+import { SongDto, Tag } from '../../../../dto/base';
 import { FileService } from '../../../services/file.service';
 
 @Component({
@@ -17,8 +17,8 @@ import { FileService } from '../../../services/file.service';
 })
 export class MusicLibraryComponent implements OnInit {
     musicList: SongDto[] = [];
-    availableTags: string[] = [];
-    filteredTags: string[][] = [];
+    availableTags: Tag[] = [];
+    filteredTags: Tag[][] = [];
     repeatIndex: number | null = null;
     @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
 

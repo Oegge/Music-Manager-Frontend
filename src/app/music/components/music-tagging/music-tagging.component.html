@@ -9,7 +9,7 @@
                      [(ngModel)]="filteredTags"
                      (selectionChange)="applyFilters()">
             <mat-option *ngFor="let tag of availableTags" [value]="tag">
-                {{ tag }}
+                {{ tag.name }}
             </mat-option>
         </mat-select>
     </mat-form-field>

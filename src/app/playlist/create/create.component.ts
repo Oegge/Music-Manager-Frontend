@@ -6,7 +6,7 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../services/music.service';
-import { SongDto } from '../../../dto/base';
+import { SongDto, Tag } from '../../../dto/base';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
@@ -21,8 +21,8 @@ import { FileService } from '../../services/file.service';
 export class CreateComponent implements OnInit {
     musicList: SongDto[] = [];
     playlist: SongDto[] = [];
-    availableTags: string[] = [];
-    selectedTags: string[] = [];
+    availableTags: Tag[] = [];
+    selectedTags: Tag[] = [];
     playlistName: string = '';
     searchText: string = '';
     private allSongs: SongDto[] = [];

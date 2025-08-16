@@ -22,7 +22,6 @@
                         placeholder="Select tags"
                         class="select"
                 >
-                    <!-- Place ngx-mat-select-search here -->
                     <mat-option class="select2-results__option--selectable">
                         <ngx-mat-select-search
                                 [formControl]="song.tagSearchControl"
@@ -33,7 +32,7 @@
 
                     <!-- List of mat-options -->
                     <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag">
-                        {{ tag }}
+                        {{ tag.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

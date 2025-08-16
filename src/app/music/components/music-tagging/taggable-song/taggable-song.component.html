@@ -2,7 +2,7 @@
     <h3 class="song-title">{{ song.title }}</h3>
     <p class="song-tags">
         <ng-container *ngFor="let tag of song.tags">
-            <span class="tag">{{ tag }}</span>
+            <span class="tag">{{ tag.name }}</span>
         </ng-container>
     </p>
     <div class="row">
@@ -41,7 +41,7 @@
                     *ngFor="let tag of availableTags"
                     [value]="tag"
             >
-                {{ tag }}
+                {{ tag.name }}
             </mat-option>
         </mat-select>
     </mat-form-field>

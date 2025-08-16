@@ -7,7 +7,7 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { SongDto } from '../../../../../dto/base';
+import { SongDto, Tag } from '../../../../../dto/base';
 import { MusicService } from '../../../../services/music.service';
 import { FileService } from '../../../../services/file.service';
 import { FormControl } from '@angular/forms';
@@ -30,7 +30,7 @@ export class TaggableSongComponent implements OnInit {
                 this.audioPlayerRef.nativeElement.currentTime = 0;
         }
     }
-    @Input() availableTags: string[] = [];
+    @Input() availableTags: Tag[] = [];
     @Output() next = new EventEmitter<void>();
     @Output() restart = new EventEmitter<void>();
     @Output() start = new EventEmitter<void>();
@@ -39,8 +39,8 @@ export class TaggableSongComponent implements OnInit {
     audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
     public repeat = false;
-    public tagsControl = new FormControl<string[]>([]);
-    public tagSearchControl = new FormControl<string[]>([]);
+    public tagsControl = new FormControl<Tag[]>([]);
+    public tagSearchControl = new FormControl<Tag[]>([]);
 
     constructor(
         private musicService: MusicService,
@@ -72,7 +72,7 @@ export class TaggableSongComponent implements OnInit {
 
     updateTags(): void {
         this.song.tags = [...(this.tagsControl?.value ?? [])].sort((a, b) =>
-            a.localeCompare(b),
+            a.name.localeCompare(b.name),
         );
 
         this.musicService.updateTags(this.song).subscribe({
