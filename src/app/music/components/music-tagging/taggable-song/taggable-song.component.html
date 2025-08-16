@@ -26,21 +26,22 @@
         <mat-select
                 [formControl]="tagsControl"
                 multiple
+                [compareWith]="compareTags"
                 placeholder="Select tags"
                 class="select"
-                (selectionChange)="updateTags()"
-        >
-            <mat-option class="select2-results__option--selectable">
+                (selectionChange)="updateTags()">
+
+            <mat-select-trigger>{{ tagsControl.value | tagNames }}</mat-select-trigger>
+
+            <mat-option disabled>
                 <ngx-mat-select-search
                         [formControl]="tagSearchControl"
                         placeholderLabel="Search tags"
-                        noEntriesFoundLabel="No tags found"
-                ></ngx-mat-select-search>
+                        noEntriesFoundLabel="No tags found">
+                </ngx-mat-select-search>
             </mat-option>
-            <mat-option
-                    *ngFor="let tag of availableTags"
-                    [value]="tag"
-            >
+
+            <mat-option *ngFor="let tag of filteredTags; trackBy: trackById" [value]="tag">
                 {{ tag.name }}
             </mat-option>
         </mat-select>

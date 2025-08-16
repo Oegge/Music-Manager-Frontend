@@ -11,6 +11,7 @@ import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-up
 import { BasicModule } from '../basic/basic.module';
 import { MusicLibraryComponent } from './components/music-library/music-library.component';
 import { TaggableSongComponent } from './components/music-tagging/taggable-song/taggable-song.component';
+import { TagNamesPipe } from '../pipes/tag-names.pipe';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import { TaggableSongComponent } from './components/music-tagging/taggable-song/
         MatInputModule,
         NgxMatSelectSearchModule,
         BasicModule,
+        TagNamesPipe,
     ],
 })
 export class MusicModule {}

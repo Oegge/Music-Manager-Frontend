@@ -11,6 +11,7 @@ import { SongDto, Tag } from '../../../../../dto/base';
 import { MusicService } from '../../../../services/music.service';
 import { FileService } from '../../../../services/file.service';
 import { FormControl } from '@angular/forms';
+import { combineLatest, map, of, startWith } from 'rxjs';
 
 @Component({
     selector: 'app-taggable-song',
@@ -40,7 +41,8 @@ export class TaggableSongComponent implements OnInit {
 
     public repeat = false;
     public tagsControl = new FormControl<Tag[]>([]);
-    public tagSearchControl = new FormControl<Tag[]>([]);
+    public tagSearchControl = new FormControl<string>('');
+    public filteredTags: Tag[] = [];
 
     constructor(
         private musicService: MusicService,
@@ -48,8 +50,10 @@ export class TaggableSongComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.tagsControl.setValue(this.availableTags);
-        this.tagSearchControl.setValue(this.availableTags);
+        this.tagsControl.setValue(this.song.tags);
+        this.tagSearchControl.valueChanges.pipe(startWith('')).subscribe(() => {
+            this.applyFilter();
+        });
     }
 
     toggleRepeat(): void {
@@ -85,5 +89,19 @@ export class TaggableSongComponent implements OnInit {
         });
 
         console.log('Updated Tags:', this.song.tags);
+    }
+
+    compareTags(tag1: Tag, tag2: Tag): boolean {
+        return tag1 && tag2 ? tag1.id === tag2.id : tag1 === tag2;
+    }
+
+    trackById = (_: number, t: Tag) => t.id;
+
+    private applyFilter() {
+        const term = (this.tagSearchControl.value ?? '').toLowerCase().trim();
+        const all = this.availableTags ?? [];
+        this.filteredTags = term
+            ? all.filter((t) => t.name?.toLowerCase().includes(term))
+            : [...all];
     }
 }
