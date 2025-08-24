@@ -41,7 +41,7 @@ jobs:
       - name: Build image (MusicManager)
         run: |
           docker build \
-            -f MusicManager/Dockerfile \
+            -f Dockerfile \
             -t ghcr.io/${OWNER_LC}/${REPO_LC}:${GITHUB_SHA} \
             -t ghcr.io/${OWNER_LC}/${REPO_LC}:latest \
             .
