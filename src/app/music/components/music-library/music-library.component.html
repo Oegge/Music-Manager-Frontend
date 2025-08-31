@@ -17,6 +17,7 @@
             <audio controls
                    [src]="fileService.getFileUrl(song.filePath)"
                    class="audio-player"
+                   preload="none"
                    #audioPlayer
                    (ended)="handleSongEnd(i)">
             </audio>
