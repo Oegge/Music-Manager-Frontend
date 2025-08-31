@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:5252/',
+    apiUrl: 'http://api.music.above.de/',
 };
