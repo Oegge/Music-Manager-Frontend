@@ -53,8 +53,6 @@
 
     text-overflow: ellipsis;
     white-space: normal;
-    min-width: 150px;
-    max-width: 100%;
 }
 
 .song-tags {
