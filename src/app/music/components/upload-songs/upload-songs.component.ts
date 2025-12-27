@@ -90,21 +90,26 @@ export class UploadSongsComponent implements OnInit {
 
         this.songs.forEach((song) => {
             formData.append('files', song.file);
+            console.log(song.selectedTagsControl.value);
 
             const metadata = {
                 title: song.title,
-                tags: song.selectedTagsControl.value.filter((tagName: string) =>
-                    this.availableTags.some(
-                        (existingTag) => tagName === existingTag.name,
-                    ),
-                ),
+                tags: song.selectedTagsControl.value
+                    .filter((tag: Tag) =>
+                        this.availableTags.some(
+                            (existingTag) => tag.name === existingTag.name,
+                        ),
+                    )
+                    .map((tag: Tag) => tag.id),
                 campaigns: [], //TODO ANNE actually allow selecting campaigns here
             };
 
             formData.append('metadata', JSON.stringify(metadata));
         });
 
-        console.log('FormData for Submission:', formData);
+        for (const [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
 
         this.musicService.UploadSongs(formData).subscribe(
             (response) => {
