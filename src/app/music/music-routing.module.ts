@@ -7,7 +7,7 @@ import { MusicLibraryComponent } from './components/music-library/music-library.
 const routes: Routes = [
     { path: 'bulk-upload', component: BulkUploadSongsComponent },
     { path: 'tag', component: MusicTaggingComponent },
-    { path: 'listen', component: MusicLibraryComponent },
+    { path: 'library', component: MusicLibraryComponent },
 ];
 
 @NgModule({

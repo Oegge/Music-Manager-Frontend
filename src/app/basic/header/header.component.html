@@ -7,24 +7,25 @@
     <nav>
         <ul class="menu">
             <li class="menu-item" aria-haspopup="true">
-                <a href="/music/listen" class="menu-link">Music</a>
+                <a href="/music/library" class="menu-link">Music</a>
                 <ul class="sub-menu" aria-label="Music submenu">
-                    <li class="sub-item"><a routerLink="/music/listen" class="menu-link">Music Library</a></li>
+                    <li class="sub-item"><a routerLink="/music/library" class="menu-link">Music Library</a></li>
                     <li class="sub-item"><a routerLink="/music/tag" class="menu-link">Music Tagging</a></li>
                     <li class="sub-item"><a routerLink="/music/bulk-upload" class="menu-link">Upload Music</a></li>
                 </ul>
             </li>
             <li class="menu-item" aria-haspopup="true">
-                <a href="/playlist/overview" class="menu-link">Playlists</a>
+                <a routerLink="/playlist/overview" class="menu-link">Playlists</a>
                 <ul class="sub-menu" aria-label="Playlists submenu">
-                    <li class="sub-item"><a routerLink="/playlist" class="menu-link">Create</a></li>
+                    <li class="sub-item"><a routerLink="/playlist/create" class="menu-link">Create</a></li>
                     <li class="sub-item"><a routerLink="/playlist/overview" class="menu-link">Overview</a></li>
                 </ul>
             </li>
             <li class="menu-item" aria-haspopup="true">
-                <a routerLink="/campaign" class="menu-link">Campaigns</a>
+                <a routerLink="/campaign/overview" class="menu-link">Campaigns</a>
                 <ul class="sub-menu" aria-label="Campaigns submenu">
-                    <li class="sub-item"><a routerLink="/campaign" class="menu-link">Campaign Library</a></li>
+                    <li class="sub-item"><a routerLink="/campaign/overview" class="menu-link">Campaign Overview</a></li>
+                    <li class="sub-item"><a routerLink="/campaign/create" class="menu-link">Create Campaign</a></li>
                 </ul>
             </li>
         </ul>

@@ -14,6 +14,11 @@ export const appRoutes: Routes = [
         loadChildren: () =>
             import('./music/music.module').then((m) => m.MusicModule),
     },
+    {
+        path: 'campaign',
+        loadChildren: () =>
+            import('./campaign/campaign.module').then((m) => m.CampaignModule),
+    },
 
     { path: '**', redirectTo: '/music' },
 ];
