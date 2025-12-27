@@ -7,11 +7,11 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { SongDto, Tag } from '../../../../../dto/base';
 import { MusicService } from '../../../../services/music.service';
 import { FileService } from '../../../../services/file.service';
 import { FormControl } from '@angular/forms';
-import { combineLatest, map, of, startWith } from 'rxjs';
+import { startWith } from 'rxjs';
+import { SongDto, Tag } from '../../../../../objects/dto/base';
 
 @Component({
     selector: 'app-taggable-song',

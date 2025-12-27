@@ -6,11 +6,11 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../services/music.service';
-import { SongDto, Tag } from '../../../dto/base';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
 import { FileService } from '../../services/file.service';
+import { SongDto, Tag } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-create',

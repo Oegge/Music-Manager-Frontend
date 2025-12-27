@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PlaylistDto } from '../../dto/base';
 import { environment } from '../../environments/environment';
+import { PlaylistDto } from '../../objects/dto/base';
 
 @Injectable({
     providedIn: 'root',

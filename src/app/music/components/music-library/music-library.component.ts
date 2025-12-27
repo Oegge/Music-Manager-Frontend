@@ -6,8 +6,8 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { MusicService } from '../../../services/music.service';
-import { SongDto, Tag } from '../../../../dto/base';
 import { FileService } from '../../../services/file.service';
+import { SongDto, Tag } from '../../../../objects/dto/base';
 
 @Component({
     selector: 'app-music-library',

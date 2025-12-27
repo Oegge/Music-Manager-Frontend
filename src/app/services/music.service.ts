@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SongDto, Tag } from '../../dto/base';
 import { environment } from '../../environments/environment';
+import { SongDto, Tag } from '../../objects/dto/base';
 
 @Injectable({
     providedIn: 'root',

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MusicService } from '../../../services/music.service';
-import { Song, Tag } from '../../../../dto/base';
 import { debounceTime } from 'rxjs';
 import {
     trigger,
@@ -10,6 +9,8 @@ import {
     animate,
     transition,
 } from '@angular/animations';
+import { Tag } from '../../../../objects/dto/base';
+import { Song } from '../../../../objects/model/base';
 
 @Component({
     selector: 'app-bulk-upload-songs',
@@ -63,11 +64,12 @@ export class BulkUploadSongsComponent implements OnInit {
                     });
 
                 return {
-                    file: file, // Include the file in the song object
-                    title: file.name.replace(/\.[^/.]+$/, ''), // Remove file extension
+                    file: file,
+                    title: file.name.replace(/\.[^/.]+$/, ''),
                     selectedTagsControl: new FormControl([]),
                     tagSearchControl: tagSearchControl,
                     tags: [],
+                    campaigns: [],
                 };
             });
 

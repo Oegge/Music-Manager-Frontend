@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaylistDto } from '../../../dto/base';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
+import { PlaylistDto } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-overview',

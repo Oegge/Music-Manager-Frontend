@@ -1,5 +1,5 @@
-import { Tag } from '../../dto/base';
 import { Pipe, PipeTransform } from '@angular/core';
+import { Tag } from '../../objects/dto/base';
 
 @Pipe({ name: 'tagNames', pure: true })
 export class TagNamesPipe implements PipeTransform {
