@@ -13,8 +13,8 @@ import { Tag } from '../../../../objects/dto/base';
 import { Song } from '../../../../objects/model/base';
 
 @Component({
-    selector: 'app-bulk-upload-songs',
-    templateUrl: './bulk-upload-songs.component.html',
+    selector: 'app-upload-songs',
+    templateUrl: './upload-songs.component.html',
     animations: [
         trigger('transitionMessages', [
             state('open', style({ opacity: 1 })),
@@ -24,14 +24,13 @@ import { Song } from '../../../../objects/model/base';
         ]),
     ],
 
-    styleUrls: ['./bulk-upload-songs.component.css'],
+    styleUrls: ['./upload-songs.component.css'],
     standalone: false,
 })
-export class BulkUploadSongsComponent implements OnInit {
-    availableTags: Tag[] = []; // Tags fetched from the backend
+export class UploadSongsComponent implements OnInit {
+    availableTags: Tag[] = [];
     songs: Song[] = [];
     filteredTags: Tag[][] = [];
-    selectedFiles: File[] | null = null;
 
     constructor(private musicService: MusicService) {}
 
@@ -89,11 +88,9 @@ export class BulkUploadSongsComponent implements OnInit {
     submitSongs(): void {
         const formData = new FormData();
 
-        // Append each song's file and metadata to the FormData
         this.songs.forEach((song) => {
-            formData.append('files', song.file); // Attach the file
+            formData.append('files', song.file);
 
-            // Create a JSON object for the metadata
             const metadata = {
                 title: song.title,
                 tags: song.selectedTagsControl.value.filter((tagName: string) =>
@@ -101,19 +98,18 @@ export class BulkUploadSongsComponent implements OnInit {
                         (existingTag) => tagName === existingTag.name,
                     ),
                 ),
+                campaigns: [], //TODO ANNE actually allow selecting campaigns here
             };
 
-            formData.append('metadata', JSON.stringify(metadata)); // Attach the metadata as JSON
+            formData.append('metadata', JSON.stringify(metadata));
         });
 
-        // Log FormData for debugging
         console.log('FormData for Submission:', formData);
 
-        // Send the FormData to the backend
-        this.musicService.bulkUploadSongs(formData).subscribe(
+        this.musicService.UploadSongs(formData).subscribe(
             (response) => {
                 console.log('Bulk upload successful:', response);
-                this.clearForm(); // Clear form inputs upon success
+                this.clearForm();
             },
             (error) => {
                 console.error('Error during bulk upload:', error);
@@ -122,13 +118,12 @@ export class BulkUploadSongsComponent implements OnInit {
         );
     }
 
-    // Helper methods for form clearing and error display
-    clearForm(): void {
-        this.songs = []; // Clear the songs array
-        this.filteredTags = []; // Reset filtered tags
+    private clearForm(): void {
+        this.songs = [];
+        this.filteredTags = [];
     }
 
-    showError(message: string): void {
-        console.error(message); // Log the error (replace with a user-facing notification)
+    private showError(message: string): void {
+        console.error(message);
     }
 }

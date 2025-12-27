@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { BulkUploadSongsComponent } from './components/bulk-upload-songs/bulk-upload-songs.component';
+import { UploadSongsComponent } from './components/upload-songs/upload-songs.component';
 import { BasicModule } from '../basic/basic.module';
 import { MusicLibraryComponent } from './components/music-library/music-library.component';
 import { TaggableSongComponent } from './components/music-tagging/taggable-song/taggable-song.component';
@@ -15,7 +15,7 @@ import { TagNamesPipe } from '../pipes/tag-names.pipe';
 
 @NgModule({
     declarations: [
-        BulkUploadSongsComponent,
+        UploadSongsComponent,
         MusicTaggingComponent,
         MusicLibraryComponent,
         TaggableSongComponent,

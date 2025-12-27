@@ -20,12 +20,8 @@ export class MusicService {
         return this.http.get<Tag[]>(`${this.baseUrl}/tags`);
     }
 
-    uploadSong(request: FormData): Observable<any> {
+    UploadSongs(request: FormData) {
         return this.http.post(`${this.baseUrl}`, request);
-    }
-
-    bulkUploadSongs(request: FormData) {
-        return this.http.post(`${this.baseUrl}/bulk`, request);
     }
 
     updateTags(song: SongDto): Observable<any> {
