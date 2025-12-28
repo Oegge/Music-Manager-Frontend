@@ -9,12 +9,14 @@ import {
     animate,
     transition,
 } from '@angular/animations';
-import { Tag } from '../../../../objects/dto/base';
+import { Campaign, Tag } from '../../../../objects/dto/base';
 import { Song } from '../../../../objects/model/base';
+import { CampaignService } from '../../../services/campaign.service';
 
 @Component({
     selector: 'app-upload-songs',
     templateUrl: './upload-songs.component.html',
+    styleUrls: ['./upload-songs.component.css'],
     animations: [
         trigger('transitionMessages', [
             state('open', style({ opacity: 1 })),
@@ -23,32 +25,48 @@ import { Song } from '../../../../objects/model/base';
             transition('closed => open', [animate('0.3s ease-in')]),
         ]),
     ],
-
-    styleUrls: ['./upload-songs.component.css'],
     standalone: false,
 })
 export class UploadSongsComponent implements OnInit {
-    availableTags: Tag[] = [];
     songs: Song[] = [];
+    availableTags: Tag[] = [];
     filteredTags: Tag[][] = [];
+    availableCampaigns: Campaign[] = [];
+    selectedCampaignsControl = new FormControl<Campaign[]>([]);
 
-    constructor(private musicService: MusicService) {}
+    constructor(
+        private musicService: MusicService,
+        private campaignService: CampaignService,
+    ) {}
 
     ngOnInit(): void {
         this.fetchTags();
+        this.fetchCampaigns();
         console.log('tags loaded');
     }
 
     fetchTags(): void {
-        this.musicService.getTags().subscribe(
-            (tags) => {
+        this.musicService.getTags().subscribe({
+            next: (tags) => {
                 console.log(tags);
                 this.availableTags = tags;
             },
-            (error) => {
+            error: (error) => {
                 console.error('Error fetching tags:', error);
             },
-        );
+        });
+    }
+
+    fetchCampaigns(): void {
+        this.campaignService.getCampaigns().subscribe({
+            next: (campaigns) => {
+                console.log(campaigns);
+                this.availableCampaigns = campaigns;
+            },
+            error: (error) => {
+                console.error('Error fetching campaigns:', error);
+            },
+        });
     }
 
     onFilesSelected(event: Event): void {
@@ -101,7 +119,9 @@ export class UploadSongsComponent implements OnInit {
                         ),
                     )
                     .map((tag: Tag) => tag.id),
-                campaigns: [], //TODO ANNE actually allow selecting campaigns here
+                campaigns: (this.selectedCampaignsControl.value ?? []).map(
+                    (c: Campaign) => c.id,
+                ), //TODO ANNE actually allow selecting campaigns here
             };
 
             formData.append('metadata', JSON.stringify(metadata));
@@ -126,6 +146,7 @@ export class UploadSongsComponent implements OnInit {
     private clearForm(): void {
         this.songs = [];
         this.filteredTags = [];
+        this.selectedCampaignsControl.setValue([]);
     }
 
     private showError(message: string): void {

@@ -1,7 +1,21 @@
 <div class="container">
     <div class="heading-m">Upload Songs</div>
     <input type="file" (change)="onFilesSelected($event)" multiple />
-
+    <div>
+        <label>Campaigns</label>
+        <mat-form-field>
+            <mat-select
+                    [formControl]="selectedCampaignsControl"
+                    multiple
+                    placeholder="Select campaigns"
+                    class="select"
+            >
+                <mat-option *ngFor="let campaign of availableCampaigns" [value]="campaign">
+                    {{ campaign.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <div *ngFor="let song of songs; let i = index" class="song-entry">
         <div>
             <label for="title-{{ i }}">Title</label>
