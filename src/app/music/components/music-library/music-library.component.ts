@@ -1,52 +1,79 @@
-import {
-    Component,
-    ElementRef,
-    OnInit,
-    QueryList,
-    ViewChildren,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MusicService } from '../../../services/music.service';
-import { FileService } from '../../../services/file.service';
 import { SongDto, Tag } from '../../../../objects/dto/base';
 
 @Component({
     selector: 'app-music-library',
-    standalone: false,
     templateUrl: './music-library.component.html',
-    styleUrl: '../music-tagging/music-tagging.component.css',
+    styleUrls: ['./music-library.component.css'],
+    standalone: false,
 })
 export class MusicLibraryComponent implements OnInit {
-    musicList: SongDto[] = [];
+    allSongs: SongDto[] = [];
+    selectedSongs: SongDto[] = [];
     availableTags: Tag[] = [];
-    filteredTags: Tag[][] = [];
-    repeatIndex: number | null = null;
-    @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
+    filteredTags: Tag[] = [];
+    searchText: string = '';
+    useAndFilterForTags: boolean = false;
+    playingSong: string = '';
 
-    constructor(
-        private musicService: MusicService,
-        public fileService: FileService,
-    ) {
+    constructor(private musicService: MusicService) {}
+
+    ngOnInit(): void {
         this.fetchTags();
         this.loadMusic();
     }
 
-    ngOnInit(): void {}
+    activateSong(songId: string): void {
+        this.playingSong = songId;
+    }
 
-    fetchTags(): void {
+    playNextSong(currentSongId: string): void {
+        const index = this.getSongIndex(currentSongId);
+        let nextIndex = (index + 1) % this.selectedSongs.length;
+        this.activateSong(this.selectedSongs[nextIndex].id);
+    }
+
+    applyFilters(): void {
+        let filteredSongs = this.allSongs;
+
+        if (this.searchText) {
+            filteredSongs = filteredSongs.filter((song) =>
+                song.title
+                    .toLowerCase()
+                    .includes(this.searchText.toLowerCase()),
+            );
+        }
+        if (this.filteredTags.length > 0) {
+            filteredSongs = filteredSongs.filter((song) =>
+                this.useAndFilterForTags
+                    ? song.tags.every((tag) =>
+                          this.filteredTags.some((f) => f.id === tag.id),
+                      )
+                    : song.tags.some((tag) =>
+                          this.filteredTags.some((f) => f.id === tag.id),
+                      ),
+            );
+        }
+        this.selectedSongs = filteredSongs;
+    }
+
+    private fetchTags(): void {
         this.musicService.getTags().subscribe({
             next: (tags) => {
                 this.availableTags = tags;
             },
-            error: (err) => {
-                console.error('Error fetching tags:', err);
+            error: (error) => {
+                console.error('Error fetching tags:', error);
             },
         });
     }
 
-    loadMusic(): void {
+    private loadMusic(): void {
         this.musicService.getMusicList().subscribe({
             next: (data) => {
-                this.musicList = data;
+                this.allSongs = data as SongDto[];
+                this.applyFilters();
             },
             error: (error) => {
                 console.error('Failed to load music list', error);
@@ -54,29 +81,16 @@ export class MusicLibraryComponent implements OnInit {
         });
     }
 
-    toggleRepeat(index: number): void {
-        if (this.repeatIndex === index) {
-            this.repeatIndex = null; // Turn off repeat if already set
-        } else {
-            this.repeatIndex = index; // Set repeat to this song
+    private filterTags(searchText: string | null): Tag[] {
+        if (!searchText) {
+            return this.availableTags;
         }
+        return this.availableTags.filter((tag) =>
+            tag.name.toLowerCase().includes(searchText.toLowerCase()),
+        );
     }
 
-    handleSongEnd(index: number): void {
-        if (this.repeatIndex !== null && this.repeatIndex === index) {
-            this.playSong(index); // Repeat the same song
-        } else {
-            this.playNextSong(index); // Play the next song
-        }
-    }
-
-    playSong(index: number): void {
-        const player = this.audioPlayers.toArray()[index].nativeElement;
-        player.play();
-    }
-
-    playNextSong(currentIndex: number): void {
-        let nextIndex = (currentIndex + 1) % this.musicList.length;
-        this.playSong(nextIndex);
+    private getSongIndex(songId: string): number {
+        return this.selectedSongs.findIndex((song) => song.id === songId);
     }
 }

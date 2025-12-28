@@ -10,7 +10,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { UploadSongsComponent } from './components/upload-songs/upload-songs.component';
 import { BasicModule } from '../basic/basic.module';
 import { MusicLibraryComponent } from './components/music-library/music-library.component';
-import { TaggableSongComponent } from './components/music-tagging/taggable-song/taggable-song.component';
+import { SongComponent } from './components/taggable-song/song.component';
 import { TagNamesPipe } from '../pipes/tag-names.pipe';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { TagNamesPipe } from '../pipes/tag-names.pipe';
         UploadSongsComponent,
         MusicTaggingComponent,
         MusicLibraryComponent,
-        TaggableSongComponent,
+        SongComponent,
     ],
     imports: [
         CommonModule,

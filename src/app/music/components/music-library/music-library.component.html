@@ -1,26 +1,29 @@
 <div class="heading-m">Music Library</div>
-<div class="music-grid">
-    <div *ngFor="let song of musicList; let i = index" class="music-card">
-        <h3 class="song-title">{{ song.title }}</h3>
-        <p class="song-tags">
-            <ng-container *ngFor="let tag of song.tags">
-                <span class="tag">{{ tag.name }}</span>
-            </ng-container>
-        </p>
-        <div class="row">
+<div class="search-filter-area">
+    <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
+           (input)="applyFilters()">
 
-            <button (click)="toggleRepeat(i)" class="repeat-button">
-            <span class="material-icons">
-                {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
-            </span>
-            </button>
-            <audio controls
-                   [src]="fileService.getFileUrl(song.filePath)"
-                   class="audio-player"
-                   preload="none"
-                   #audioPlayer
-                   (ended)="handleSongEnd(i)">
-            </audio>
-        </div>
+    <mat-form-field>
+        <mat-label>Filter Tags</mat-label>
+        <mat-select multiple
+                    [(ngModel)]="filteredTags"
+                    (selectionChange)="applyFilters()">
+            <mat-option *ngFor="let tag of availableTags" [value]="tag">
+                {{ tag.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="music-grid">
+    <div *ngFor="let song of selectedSongs">
+        <app-song
+                [song]=song
+                [playing]="song.id === playingSong"
+                [availableTags]="undefined"
+                (next)="playNextSong(song.id)"
+                (restart)="activateSong(song.id)"
+                (start)="activateSong(song.id)">
+        </app-song>
     </div>
 </div>

@@ -7,19 +7,19 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { MusicService } from '../../../../services/music.service';
-import { FileService } from '../../../../services/file.service';
+import { MusicService } from '../../../services/music.service';
+import { FileService } from '../../../services/file.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs';
-import { SongDto, Tag } from '../../../../../objects/dto/base';
+import { SongDto, Tag } from '../../../../objects/dto/base';
 
 @Component({
-    selector: 'app-taggable-song',
+    selector: 'app-song',
     standalone: false,
-    templateUrl: './taggable-song.component.html',
-    styleUrl: './taggable-song.component.css',
+    templateUrl: './song.component.html',
+    styleUrl: './song.component.css',
 })
-export class TaggableSongComponent implements OnInit {
+export class SongComponent implements OnInit {
     @Input() song!: SongDto;
     private _playing = false;
     @Input() set playing(value: boolean) {
@@ -31,7 +31,7 @@ export class TaggableSongComponent implements OnInit {
                 this.audioPlayerRef.nativeElement.currentTime = 0;
         }
     }
-    @Input() availableTags: Tag[] = [];
+    @Input() availableTags?: Tag[] = [];
     @Output() next = new EventEmitter<void>();
     @Output() restart = new EventEmitter<void>();
     @Output() start = new EventEmitter<void>();
