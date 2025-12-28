@@ -38,15 +38,6 @@ app-root {
   grid-auto-flow: row;
 }
 
-.hidden {
-  display: none;
-}
-
-.scrollable-div {
-  max-height: 100%;
-  overflow: auto;
-}
-
 .container {
   flex: 1;
   min-width: 0;
@@ -115,21 +106,8 @@ svg {
   border-radius: 10px;
 }
 
-.rollable {
-  pointer-events: all; /* Ensure the element captures click events */
-  cursor: pointer; /* Change the cursor to indicate interactivity */
-}
-
 .text {
   pointer-events: none;
-}
-
-.backgrounds.rollable:hover {
-  cursor: pointer;
-  pointer-events: all;
-  transition: fill 0.4s ease;
-  fill: var(--background-ability-translucent);
-  fill-opacity: 0.6;
 }
 
 input[type="checkbox"] {

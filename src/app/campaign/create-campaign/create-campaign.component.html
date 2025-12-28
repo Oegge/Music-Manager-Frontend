@@ -1,1 +1,19 @@
-<p>create-campaign works!</p>
+<div>
+    <div class="heading-l">Create a new Campaign</div>
+
+    <input
+            type="text"
+            placeholder="Campaign name"
+            [(ngModel)]="campaignName"
+    />
+
+    <button
+            class="btn"
+            type="button"
+            [class.disabled]="!campaignName.trim()"
+            [disabled]="!campaignName.trim()"
+            (click)="onCreateCampaign(campaignName)"
+    >
+        Create
+    </button>
+</div>

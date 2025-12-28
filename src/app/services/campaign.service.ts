@@ -15,4 +15,8 @@ export class CampaignService {
     getCampaigns(): Observable<Campaign[]> {
         return this.http.get<Campaign[]>(`${this.baseUrl}`);
     }
+
+    createNewCampaign(campaignName: string) {
+        return this.http.post(`${this.baseUrl}`, { name: campaignName });
+    }
 }

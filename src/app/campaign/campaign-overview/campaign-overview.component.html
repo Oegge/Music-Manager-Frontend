@@ -1,1 +1,15 @@
-<p>campaign-overview works!</p>
+<div>
+    <button
+            type="button"
+            class="btn"
+            (click)="createCampaign()"
+    >
+        Create New Campaign
+    </button>
+</div>
+<div class="heading-m">Your Campaigns</div>
+<div class="campaign-list">
+    <div *ngFor="let campaign of campaigns" class="campaign-list-entry">
+        {{ campaign.name }}
+    </div>
+</div>

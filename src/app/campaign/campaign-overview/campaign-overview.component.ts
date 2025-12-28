@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CampaignService } from '../../services/campaign.service';
+import { Campaign } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-campaign-overview',
@@ -6,4 +9,23 @@ import { Component } from '@angular/core';
     styleUrl: './campaign-overview.component.css',
     standalone: false,
 })
-export class CampaignOverviewComponent {}
+export class CampaignOverviewComponent implements OnInit {
+    protected campaigns: Campaign[] = [];
+
+    constructor(
+        private router: Router,
+        private campaignService: CampaignService,
+    ) {}
+
+    ngOnInit(): void {
+        this.campaignService.getCampaigns().subscribe({
+            next: (campaigns) => {
+                this.campaigns = campaigns;
+            },
+        });
+    }
+
+    createCampaign(): void {
+        this.router.navigate(['/campaign/create']);
+    }
+}
