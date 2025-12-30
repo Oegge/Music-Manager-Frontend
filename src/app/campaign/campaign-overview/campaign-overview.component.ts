@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CampaignService } from '../../services/campaign.service';
 import { Campaign } from '../../../objects/dto/base';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'app-campaign-overview',
@@ -18,10 +19,8 @@ export class CampaignOverviewComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.campaignService.getCampaigns().subscribe({
-            next: (campaigns) => {
-                this.campaigns = campaigns;
-            },
+        this.campaignService.campaigns$.pipe(take(1)).subscribe((campaigns) => {
+            this.campaigns = campaigns;
         });
     }
 

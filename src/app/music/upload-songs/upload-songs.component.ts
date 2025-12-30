@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MusicService } from '../../services/music.service';
-import { debounceTime } from 'rxjs';
+import { debounceTime, take } from 'rxjs';
 import {
     trigger,
     state,
@@ -58,14 +58,8 @@ export class UploadSongsComponent implements OnInit {
     }
 
     fetchCampaigns(): void {
-        this.campaignService.getCampaigns().subscribe({
-            next: (campaigns) => {
-                console.log(campaigns);
-                this.availableCampaigns = campaigns;
-            },
-            error: (error) => {
-                console.error('Error fetching campaigns:', error);
-            },
+        this.campaignService.campaigns$.pipe(take(1)).subscribe((campaigns) => {
+            this.availableCampaigns = campaigns;
         });
     }
 
