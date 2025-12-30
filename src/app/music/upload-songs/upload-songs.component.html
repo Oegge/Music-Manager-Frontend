@@ -1,57 +1,54 @@
-<div class="container">
-    <div class="heading-m">Upload Songs</div>
-    <input type="file" (change)="onFilesSelected($event)" multiple />
+<div class="heading-m">Upload Songs</div>
+<input type="file" (change)="onFilesSelected($event)" multiple/>
+<div class="campaign-select">
+    <div>Add to Campaigns</div>
+    <mat-form-field>
+        <mat-select
+                [formControl]="selectedCampaignsControl"
+                multiple
+                placeholder="Select campaigns"
+                class="select"
+        >
+            <mat-option *ngFor="let campaign of availableCampaigns" [value]="campaign">
+                {{ campaign.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+<div *ngFor="let song of songs; let i = index" class="song-entry">
     <div>
-        <label>Campaigns</label>
+        <label for="title-{{ i }}">Title</label>
+        <input
+                id="title-{{ i }}"
+                type="text"
+                [(ngModel)]="song.title"
+                placeholder="Enter title"
+                required
+        />
+    </div>
+    <div>
+        <label for="tags-{{ i }}">Tags</label>
         <mat-form-field>
             <mat-select
-                    [formControl]="selectedCampaignsControl"
+                    [formControl]="song.selectedTagsControl"
                     multiple
-                    placeholder="Select campaigns"
+                    placeholder="Select tags"
                     class="select"
             >
-                <mat-option *ngFor="let campaign of availableCampaigns" [value]="campaign">
-                    {{ campaign.name }}
+                <mat-option class="select2-results__option--selectable">
+                    <ngx-mat-select-search
+                            [formControl]="song.tagSearchControl"
+                            placeholderLabel="Search tags"
+                            noEntriesFoundLabel="No tags found"
+                    ></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag">
+                    {{ tag.name }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
-    <div *ngFor="let song of songs; let i = index" class="song-entry">
-        <div>
-            <label for="title-{{ i }}">Title</label>
-            <input
-                    id="title-{{ i }}"
-                    type="text"
-                    [(ngModel)]="song.title"
-                    placeholder="Enter title"
-                    required
-            />
-        </div>
-        <div>
-            <label for="tags-{{ i }}">Tags</label>
-            <mat-form-field>
-                <mat-select
-                        [formControl]="song.selectedTagsControl"
-                        multiple
-                        placeholder="Select tags"
-                        class="select"
-                >
-                    <mat-option class="select2-results__option--selectable">
-                        <ngx-mat-select-search
-                                [formControl]="song.tagSearchControl"
-                                placeholderLabel="Search tags"
-                                noEntriesFoundLabel="No tags found"
-                        ></ngx-mat-select-search>
-                    </mat-option>
-
-                    <!-- List of mat-options -->
-                    <mat-option *ngFor="let tag of filteredTags[i]" [value]="tag">
-                        {{ tag.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-
-    <button (click)="submitSongs()">Submit</button>
 </div>
+<button class="btn" (click)="submitSongs()">Submit</button>
