@@ -23,4 +23,20 @@
             </li>
         </ul>
     </nav>
+    <div class="campaign-select">
+        <fa-icon [icon]="faBook" title="Select a Campaign to focus on" class="campaign-icon"></fa-icon>
+        <select
+                [ngModel]="currentCampaign?.id ?? ''"
+                (ngModelChange)="onCampaignIdChange($event)"
+                [class.has-campaign]="!!currentCampaign"
+        >
+            <option value="">
+                No Campaign
+            </option>
+
+            <option *ngFor="let c of campaigns" [value]="c.id">
+                {{ c.name }}
+            </option>
+        </select>
+    </div>
 </header>
