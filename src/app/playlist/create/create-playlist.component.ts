@@ -14,11 +14,11 @@ import { SongDto, Tag } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-create',
-    templateUrl: './create.component.html',
+    templateUrl: './create-playlist.component.html',
     standalone: false,
-    styleUrls: ['./create.component.css'],
+    styleUrls: ['./create-playlist.component.css'],
 })
-export class CreateComponent implements OnInit {
+export class CreatePlaylistComponent implements OnInit {
     musicList: SongDto[] = [];
     playlist: SongDto[] = [];
     availableTags: Tag[] = [];

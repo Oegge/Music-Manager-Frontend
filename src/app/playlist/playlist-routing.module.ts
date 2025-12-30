@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './create/create.component';
-import { OverviewComponent } from './overview/overview.component';
+import { CreatePlaylistComponent } from './create/create-playlist.component';
+import { PlaylistOverviewComponent } from './overview/playlist-overview.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 
 const routes: Routes = [
-    { path: 'create', component: CreateComponent },
-    { path: 'overview', component: OverviewComponent },
+    { path: 'create', component: CreatePlaylistComponent },
+    { path: 'overview', component: PlaylistOverviewComponent },
     { path: ':playlistId', component: PlaylistComponent },
 ];
 

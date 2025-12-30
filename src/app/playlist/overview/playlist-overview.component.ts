@@ -6,10 +6,10 @@ import { PlaylistDto } from '../../../objects/dto/base';
 @Component({
     selector: 'app-overview',
     standalone: false,
-    templateUrl: './overview.component.html',
-    styleUrl: './overview.component.css',
+    templateUrl: './playlist-overview.component.html',
+    styleUrl: './playlist-overview.component.css',
 })
-export class OverviewComponent implements OnInit {
+export class PlaylistOverviewComponent implements OnInit {
     playlists: PlaylistDto[] = [];
     selectedPlaylist: PlaylistDto | null = null;
     isModalOpen = false;
@@ -22,6 +22,7 @@ export class OverviewComponent implements OnInit {
     ngOnInit() {
         this.loadPlaylist();
     }
+
     loadPlaylist(): void {
         this.playlistService.getAll().subscribe({
             next: (data: PlaylistDto[]) => {
@@ -36,6 +37,10 @@ export class OverviewComponent implements OnInit {
     navigateToPlaylist(id: string): void {
         console.log(id);
         this.router.navigate(['/playlist', id]);
+    }
+
+    onCreatePlaylist(): void {
+        this.router.navigate(['/playlist/create']);
     }
 
     openDeleteModal(playlist: PlaylistDto): void {
