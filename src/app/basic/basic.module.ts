@@ -6,9 +6,10 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
-    declarations: [ModalComponent, HeaderComponent],
+    declarations: [ModalComponent, HeaderComponent, ConfirmComponent],
     imports: [
         CommonModule,
         RouterLink,
@@ -16,6 +17,6 @@ import { TruncatePipe } from '../pipes/truncate.pipe';
         FontAwesomeModule,
         TruncatePipe,
     ],
-    exports: [ModalComponent, HeaderComponent],
+    exports: [ModalComponent, HeaderComponent, ConfirmComponent],
 })
 export class BasicModule {}

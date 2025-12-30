@@ -34,6 +34,14 @@ export class CampaignService {
             );
     }
 
+    public deleteCampaign(campaign: Campaign) {
+        return this.http.delete(`${this.baseUrl}/${campaign.id}`).pipe(
+            tap(() => {
+                this.refreshCampaigns();
+            }),
+        );
+    }
+
     public selectCampaign(selectedCampaign?: Campaign): void {
         this.currentCampaignSubject.next(selectedCampaign);
     }

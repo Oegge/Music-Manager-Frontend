@@ -1,7 +1,10 @@
 
 .campaign-card {
     width: 15rem;
-    height: 5rem;
+    height: 5.5rem;
+
+    display: flex;
+    flex-direction: column;
 
     border-radius: 6px;
     border: 1px solid var(--border-color-solid);
@@ -10,4 +13,9 @@
 
     font-weight: bold;
     padding: 0.5rem;
+}
+
+.campaign-actions {
+    margin-top: auto;
+    text-align: right;
 }

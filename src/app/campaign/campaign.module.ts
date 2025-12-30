@@ -5,6 +5,8 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
 import { CampaignRoutingModule } from './campaign-routing.module';
 import { FormsModule } from '@angular/forms';
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
+import { BasicModule } from '../basic/basic.module';
+import { CdkStepLabel } from '@angular/cdk/stepper';
 
 @NgModule({
     declarations: [
@@ -12,6 +14,12 @@ import { CampaignCardComponent } from './campaign-card/campaign-card.component';
         CreateCampaignComponent,
         CampaignCardComponent,
     ],
-    imports: [CommonModule, CampaignRoutingModule, FormsModule],
+    imports: [
+        CommonModule,
+        CampaignRoutingModule,
+        FormsModule,
+        BasicModule,
+        CdkStepLabel,
+    ],
 })
 export class CampaignModule {}

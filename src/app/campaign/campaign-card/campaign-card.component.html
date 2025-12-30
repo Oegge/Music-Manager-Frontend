@@ -1,1 +1,17 @@
-<div *ngIf="campaign" class="campaign-card">{{ campaign.name }}</div>
+<div class="campaign-card">
+    <div>{{ campaign.name }}</div>
+    <div class="campaign-actions">
+        <button class="btn tight" (click)="onRequestDelete()">Delete</button>
+    </div>
+</div>
+
+<modal [isOpen]="deletionRequested"
+       (close)="onCancelDelete()">
+    <ng-template #content>
+        <app-confirm
+                [question]="deleteQuestion"
+                (yes)="onDelete()"
+                (no)="onCancelDelete()">
+        </app-confirm>
+    </ng-template>
+</modal>
