@@ -8,7 +8,7 @@ import { SongDto, Tag } from '../../objects/dto/base';
     providedIn: 'root',
 })
 export class MusicService {
-    private baseUrl = environment.apiUrl + 'api/Music';
+    private baseUrl = environment.apiUrl + 'api/music';
 
     constructor(private http: HttpClient) {}
 
