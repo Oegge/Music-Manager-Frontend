@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MusicService } from '../../../services/music.service';
+import { MusicService } from '../../services/music.service';
 import { debounceTime } from 'rxjs';
 import {
     trigger,
@@ -9,9 +9,9 @@ import {
     animate,
     transition,
 } from '@angular/animations';
-import { Campaign, Tag } from '../../../../objects/dto/base';
-import { Song } from '../../../../objects/model/base';
-import { CampaignService } from '../../../services/campaign.service';
+import { Campaign, Tag } from '../../../objects/dto/base';
+import { Song } from '../../../objects/model/base';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
     selector: 'app-upload-songs',

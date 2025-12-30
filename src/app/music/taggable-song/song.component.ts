@@ -7,11 +7,11 @@ import {
     Output,
     ViewChild,
 } from '@angular/core';
-import { MusicService } from '../../../services/music.service';
-import { FileService } from '../../../services/file.service';
+import { MusicService } from '../../services/music.service';
+import { FileService } from '../../services/file.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs';
-import { SongDto, Tag } from '../../../../objects/dto/base';
+import { SongDto, Tag } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-song',
