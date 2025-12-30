@@ -7,7 +7,6 @@
                 [formControl]="selectedCampaignsControl"
                 multiple
                 placeholder="Select campaigns"
-                class="select"
         >
             <mat-option *ngFor="let campaign of availableCampaigns" [value]="campaign">
                 {{ campaign.name }}
