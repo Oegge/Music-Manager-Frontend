@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CampaignService } from '../../services/campaign.service';
 import { Campaign } from '../../../objects/dto/base';
 import { take } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-campaign-overview',
@@ -11,6 +12,7 @@ import { take } from 'rxjs';
     standalone: false,
 })
 export class CampaignOverviewComponent implements OnInit {
+    private destroyRef = inject(DestroyRef);
     protected campaigns: Campaign[] = [];
 
     constructor(
@@ -19,9 +21,9 @@ export class CampaignOverviewComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.campaignService.campaigns$.pipe(take(1)).subscribe((campaigns) => {
-            this.campaigns = campaigns;
-        });
+        this.campaignService.campaigns$
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((campaigns) => (this.campaigns = campaigns));
     }
 
     createCampaign(): void {
