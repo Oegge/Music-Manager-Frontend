@@ -43,7 +43,7 @@ export class CampaignService {
             next: (cs) => {
                 this.campaignsSubject.next(cs);
                 const current = this.currentCampaignSubject.value;
-                if (current && !cs.some((c) => c.id === current.id)) {
+                if (!!current && !cs.some((c) => c.id === current.id)) {
                     this.currentCampaignSubject.next(undefined);
                 }
             },

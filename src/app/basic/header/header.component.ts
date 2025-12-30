@@ -44,6 +44,10 @@ export class HeaderComponent implements OnInit {
         }
     }
 
+    protected trackByCampaignId(_: number, c: Campaign) {
+        return c.id;
+    }
+
     private updateCampaigns(newCampaigns: Campaign[]): void {
         this.campaigns = newCampaigns;
     }
