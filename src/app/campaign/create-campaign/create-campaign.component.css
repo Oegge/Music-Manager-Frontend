@@ -2,3 +2,19 @@
     display: flex;
     padding: 1rem;
 }
+
+.campaign-name input[type="text"] {
+    width: 50ch;
+}
+
+.submit-campaign{
+    padding-top: 1rem;
+}
+
+.creation-ui-notes{
+    color: var(--text-color-ui);
+    font-stretch: condensed;
+    font-size: 0.8rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.1rem;
+}

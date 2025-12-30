@@ -1,19 +1,23 @@
 <div>
     <div class="heading-l">Create a new Campaign</div>
 
-    <input
-            type="text"
-            placeholder="Campaign name"
-            [(ngModel)]="campaignName"
-    />
-
-    <button
-            class="btn"
-            type="button"
-            [class.disabled]="!campaignName.trim()"
-            [disabled]="!campaignName.trim()"
-            (click)="onCreateCampaign(campaignName)"
-    >
-        Create
-    </button>
+    <div class="campaign-name">
+        <div class="creation-ui-notes">Campaign Name</div>
+        <input class="campaign-name"
+                type="text"
+                placeholder="My Campaign"
+                [(ngModel)]="campaignName"
+        />
+    </div>
+    <div class="submit-campaign">
+        <button
+                class="btn"
+                type="button"
+                [class.disabled]="!campaignName.trim()"
+                [disabled]="!campaignName.trim()"
+                (click)="onCreateCampaign(campaignName)"
+        >
+            Create
+        </button>
+    </div>
 </div>
