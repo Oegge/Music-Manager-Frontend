@@ -34,8 +34,8 @@
                 No Campaign
             </option>
 
-            <option *ngFor="let c of campaigns" [value]="c.id">
-                {{ c.name }}
+            <option *ngFor="let c of campaigns" [value]="c.id" [title]="c.name">
+                {{ c.name | truncate:32 }}
             </option>
         </select>
     </div>
