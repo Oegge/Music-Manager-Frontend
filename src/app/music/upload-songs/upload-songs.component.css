@@ -47,3 +47,14 @@ input[type="file"]:hover,
 input[type="text"]:hover {
     border-color: var(--border-color-solid);
 }
+
+
+/* The following css is to force material to look how I want */
+
+:host ::ng-deep .mat-mdc-select-trigger {
+    height: auto;
+}
+
+:host ::ng-deep .mat-mdc-select-min-line {
+    white-space: normal;
+}
