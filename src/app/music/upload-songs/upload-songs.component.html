@@ -1,5 +1,5 @@
 <div class="heading-m">Upload Songs</div>
-<input type="file" (change)="onFilesSelected($event)" multiple/>
+<input #fileInput type="file" (change)="onFilesSelected($event)" multiple/>
 <div class="campaign-select">
     <div>Add to Campaigns</div>
     <mat-form-field>
@@ -50,4 +50,4 @@
         </mat-form-field>
     </div>
 </div>
-<button class="btn" (click)="submitSongs()">Submit</button>
+<button class="btn" [ngClass]="{ disabled: !songs || songs.length === 0 }" (click)="submitSongs()">Submit</button>

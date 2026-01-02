@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MusicService } from '../../services/music.service';
 import { debounceTime, take } from 'rxjs';
@@ -28,6 +28,7 @@ import { CampaignService } from '../../services/campaign.service';
     standalone: false,
 })
 export class UploadSongsComponent implements OnInit {
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
     songs: Song[] = [];
     availableTags: Tag[] = [];
     filteredTags: Tag[][] = [];
@@ -115,7 +116,7 @@ export class UploadSongsComponent implements OnInit {
                     .map((tag: Tag) => tag.id),
                 campaigns: (this.selectedCampaignsControl.value ?? []).map(
                     (c: Campaign) => c.id,
-                ), //TODO ANNE actually allow selecting campaigns here
+                ),
             };
 
             formData.append('metadata', JSON.stringify(metadata));
@@ -125,22 +126,23 @@ export class UploadSongsComponent implements OnInit {
             console.log(key, value);
         }
 
-        this.musicService.UploadSongs(formData).subscribe(
-            (response) => {
+        this.musicService.UploadSongs(formData).subscribe({
+            next: (response) => {
                 console.log('Bulk upload successful:', response);
                 this.clearForm();
             },
-            (error) => {
+            error: (error) => {
                 console.error('Error during bulk upload:', error);
                 this.showError('Failed to upload songs. Please try again.');
             },
-        );
+        });
     }
 
     private clearForm(): void {
         this.songs = [];
         this.filteredTags = [];
         this.selectedCampaignsControl.setValue([]);
+        this.fileInput.nativeElement.value = '';
     }
 
     private showError(message: string): void {
