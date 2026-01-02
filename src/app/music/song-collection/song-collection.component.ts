@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { Campaign, SongDto, Tag } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
@@ -12,8 +12,11 @@ import { CampaignService } from '../../services/campaign.service';
 export class SongCollectionComponent implements OnInit {
     @Input() scopeCampaign = false;
     @Input() allowTagging = false;
+    @Input() allowSelecting = false;
+    @Output() songIdsSelected = new EventEmitter<Set<string>>();
     allSongs: SongDto[] = [];
     filteredSongs: SongDto[] = [];
+    selectedSongIds = new Set<string>();
     availableTags: Tag[] = [];
     filteredTags: Tag[] = [];
     searchText: string = '';
@@ -30,7 +33,7 @@ export class SongCollectionComponent implements OnInit {
         if (this.scopeCampaign) {
             this.campaignService.currentCampaign$.subscribe((campaign) => {
                 if (this.campaign?.id != campaign?.id) {
-                    this.playingSong = '';
+                    this.softResetUserInputs();
                     this.campaign = campaign;
                     this.fetchTags();
                     this.loadMusic();
@@ -44,6 +47,17 @@ export class SongCollectionComponent implements OnInit {
 
     activateSong(songId: string): void {
         this.playingSong = songId;
+    }
+
+    onCardClicked(songId: string): void {
+        if (this.allowSelecting) {
+            if (this.selectedSongIds.has(songId)) {
+                this.selectedSongIds.delete(songId);
+            } else {
+                this.selectedSongIds.add(songId);
+            }
+            this.songIdsSelected.emit(this.selectedSongIds);
+        }
     }
 
     playNextSong(currentSongId: string): void {
@@ -72,6 +86,17 @@ export class SongCollectionComponent implements OnInit {
                           this.filteredTags.some((f) => f.id === tag.id),
                       ),
             );
+        }
+        filteredSongs.sort((a, b) => a.title.localeCompare(b.title));
+        if (this.allowSelecting) {
+            const filteredIds = new Set(filteredSongs.map((s) => s.id));
+
+            this.selectedSongIds.forEach((id) => {
+                if (!filteredIds.has(id)) {
+                    this.selectedSongIds.delete(id);
+                }
+            });
+            this.songIdsSelected.emit(this.selectedSongIds);
         }
         this.filteredSongs = filteredSongs;
     }
@@ -118,16 +143,13 @@ export class SongCollectionComponent implements OnInit {
         }
     }
 
-    private filterTags(searchText: string | null): Tag[] {
-        if (!searchText) {
-            return this.availableTags;
-        }
-        return this.availableTags.filter((tag) =>
-            tag.name.toLowerCase().includes(searchText.toLowerCase()),
-        );
-    }
-
     private getSongIndex(songId: string): number {
         return this.filteredSongs.findIndex((song) => song.id === songId);
+    }
+
+    private softResetUserInputs(): void {
+        this.playingSong = '';
+        this.selectedSongIds = new Set<string>();
+        this.songIdsSelected.emit(this.selectedSongIds);
     }
 }

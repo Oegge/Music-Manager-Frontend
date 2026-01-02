@@ -9,10 +9,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { UploadSongsComponent } from './upload-songs/upload-songs.component';
 import { BasicModule } from '../basic/basic.module';
 import { SongCollectionComponent } from './song-collection/song-collection.component';
-import { SongCardComponent } from './song/song-card.component';
+import { SongCardComponent } from './song-card/song-card.component';
 import { TagNamesPipe } from '../pipes/tag-names.pipe';
 import { CampaignSongsComponent } from './campaign-songs/campaign-songs.component';
-import { SongManagementComponent } from './song-management/song-management.component';
+import { SongTaggingComponent } from './song-tagging/song-tagging.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +20,7 @@ import { SongManagementComponent } from './song-management/song-management.compo
         SongCollectionComponent,
         SongCardComponent,
         CampaignSongsComponent,
-        SongManagementComponent,
+        SongTaggingComponent,
     ],
     imports: [
         CommonModule,

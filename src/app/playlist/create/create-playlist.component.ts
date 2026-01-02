@@ -154,7 +154,7 @@ export class CreatePlaylistComponent implements OnInit {
     }
 
     handleSongEnd(index: number): void {
-        this.playSong(index); // Repeat the same song
+        this.playSong(index); // Repeat the same song-card
     }
 
     private getRekt(): void {

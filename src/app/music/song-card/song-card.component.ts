@@ -14,7 +14,7 @@ import { startWith } from 'rxjs';
 import { SongDto, Tag } from '../../../objects/dto/base';
 
 @Component({
-    selector: 'app-song',
+    selector: 'app-song-card',
     standalone: false,
     templateUrl: './song-card.component.html',
     styleUrl: './song-card.component.css',
@@ -33,9 +33,12 @@ export class SongCardComponent implements OnInit {
     }
     @Input() availableTags?: Tag[] = [];
     @Input() showCampaigns = false;
+    @Input() isHighlighted = false;
+    @Input() enableHoverEffects = false;
     @Output() next = new EventEmitter<void>();
     @Output() restart = new EventEmitter<void>();
     @Output() start = new EventEmitter<void>();
+    @Output() cardClicked = new EventEmitter<void>();
 
     @ViewChild('audioPlayer', { static: false })
     audioPlayerRef!: ElementRef<HTMLAudioElement>;
@@ -57,7 +60,8 @@ export class SongCardComponent implements OnInit {
         });
     }
 
-    toggleRepeat(): void {
+    toggleRepeat(event: MouseEvent): void {
+        event.stopPropagation();
         this.repeat = !this.repeat;
     }
 
@@ -70,9 +74,15 @@ export class SongCardComponent implements OnInit {
         }
     }
 
-    startPlaying(): void {
+    startPlaying(event?: MouseEvent): void {
+        event?.stopPropagation();
         this.playing = true;
         this.start.emit();
+    }
+
+    onCardClick(event?: MouseEvent): void {
+        event?.stopPropagation();
+        this.cardClicked.emit();
     }
 
     updateTags(): void {

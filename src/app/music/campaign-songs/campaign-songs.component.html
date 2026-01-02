@@ -1,6 +1,6 @@
 <div *ngIf="!!campaign">
     <div class="heading-m">Music of {{ campaign.name }}</div>
-    <app-song-collection [scopeCampaign]="true" [allowTagging]="false"></app-song-collection>
+    <app-song-collection [scopeCampaign]="true" [allowTagging]="false" [allowSelecting]="false"></app-song-collection>
 </div>
 <div *ngIf="!campaign">Select a campaign to browse its music!</div>
 

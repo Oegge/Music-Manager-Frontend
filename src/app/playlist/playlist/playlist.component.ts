@@ -23,7 +23,7 @@ export class PlaylistComponent implements OnInit {
     private playlistId: any;
     playlist?: PlaylistDto;
     musicList: SongDto[] = [];
-    repeatIndex: number | null = null; // To keep track of which song to repeat
+    repeatIndex: number | null = null; // To keep track of which song-card to repeat
     @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
     enableFade: boolean = false;
     isPaused: boolean = false;
@@ -58,15 +58,15 @@ export class PlaylistComponent implements OnInit {
         if (this.repeatIndex === index) {
             this.repeatIndex = null; // Turn off repeat if already set
         } else {
-            this.repeatIndex = index; // Set repeat to this song
+            this.repeatIndex = index; // Set repeat to this song-card
         }
     }
 
     handleSongEnd(index: number): void {
         if (this.repeatIndex !== null && this.repeatIndex === index) {
-            this.playSong(index); // Repeat the same song
+            this.playSong(index); // Repeat the same song-card
         } else {
-            this.playNextSong(index); // Play the next song
+            this.playNextSong(index); // Play the next song-card
         }
     }
 
@@ -88,15 +88,15 @@ export class PlaylistComponent implements OnInit {
         if (currentAudio && currentAudio !== players[index].nativeElement) {
             if (this.enableFade) {
                 this.fadeOut(currentAudio, () => {
-                    this.startPlay(index); // Start playing new song after fade out completes
+                    this.startPlay(index); // Start playing new song-card after fade out completes
                 });
             } else {
                 currentAudio.pause(); // Pause immediately without fading
-                currentAudio.currentTime = 0; // Reset the song to the start
+                currentAudio.currentTime = 0; // Reset the song-card to the start
                 this.startPlay(index);
             }
         } else {
-            this.startPlay(index); // No current audio playing, so just start the new song
+            this.startPlay(index); // No current audio playing, so just start the new song-card
         }
     }
 
@@ -136,7 +136,7 @@ export class PlaylistComponent implements OnInit {
             if (volume <= 0) {
                 clearInterval(interval);
                 audio.pause(); // Ensure to pause the audio here
-                audio.currentTime = 0; // Reset the song to the start if needed
+                audio.currentTime = 0; // Reset the song-card to the start if needed
                 callback(); // Call the callback after the audio is paused
             }
         }, 50); // Adjust the interval speed as necessary for a smoother fade

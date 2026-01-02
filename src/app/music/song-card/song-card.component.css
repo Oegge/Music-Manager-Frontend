@@ -20,6 +20,19 @@
     color: var(--text-color-solid);
 }
 
+.music-card.highlighted {
+    background: var(--background-secondary-color-solid);
+    border: 2px solid var(--border-color-solid);
+}
+
+.music-card.highlighted.hoverable:hover{
+    background: var(--background-secondary-color-hover-solid);
+}
+
+.music-card.hoverable:hover{
+    background: var(--background-color-hover-solid);
+}
+
 .repeat-button {
     display: flex;
     align-items: center;

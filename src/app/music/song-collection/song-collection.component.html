@@ -16,14 +16,17 @@
 
 <div class="music-grid">
     <div *ngFor="let song of filteredSongs">
-        <app-song
+        <app-song-card
                 [song]=song
                 [playing]="song.id === playingSong"
                 [availableTags]="allowTagging ? availableTags : undefined"
                 [showCampaigns]="!scopeCampaign"
+                [isHighlighted]="selectedSongIds.has(song.id)"
+                [enableHoverEffects]="allowSelecting"
                 (next)="playNextSong(song.id)"
                 (restart)="activateSong(song.id)"
-                (start)="activateSong(song.id)">
-        </app-song>
+                (start)="activateSong(song.id)"
+                (cardClicked)="onCardClicked(song.id)">
+        </app-song-card>
     </div>
 </div>
