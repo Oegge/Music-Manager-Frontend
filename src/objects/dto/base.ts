@@ -1,10 +1,3 @@
-export interface UploadSongRequest {
-    file: File;
-    title: string;
-    artist: string;
-    tags: string[];
-}
-
 export interface Tag {
     name: string;
     id: string;
