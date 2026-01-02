@@ -1,4 +1,3 @@
-<div class="heading-m">Music Library</div>
 <div class="search-filter-area">
     <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
            (input)="applyFilters()">
@@ -16,11 +15,12 @@
 </div>
 
 <div class="music-grid">
-    <div *ngFor="let song of selectedSongs">
+    <div *ngFor="let song of filteredSongs">
         <app-song
                 [song]=song
                 [playing]="song.id === playingSong"
-                [availableTags]="undefined"
+                [availableTags]="allowTagging ? availableTags : undefined"
+                [showCampaigns]="!scopeCampaign"
                 (next)="playNextSong(song.id)"
                 (restart)="activateSong(song.id)"
                 (start)="activateSong(song.id)">

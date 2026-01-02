@@ -32,6 +32,7 @@ export class SongComponent implements OnInit {
         }
     }
     @Input() availableTags?: Tag[] = [];
+    @Input() showCampaigns = false;
     @Output() next = new EventEmitter<void>();
     @Output() restart = new EventEmitter<void>();
     @Output() start = new EventEmitter<void>();

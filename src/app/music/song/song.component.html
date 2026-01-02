@@ -5,7 +5,7 @@
             <span class="tag">{{ tag.name }}</span>
         </ng-container>
     </div>
-    <div class="song-campaigns">
+    <div *ngIf="showCampaigns" class="song-campaigns">
         <ng-container *ngFor="let campaign of song.campaigns">
             <span class="campaign">{{ campaign.name }}</span>
         </ng-container>
