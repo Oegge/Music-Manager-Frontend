@@ -15,9 +15,9 @@ import { PlaylistDto, SongDto } from '../../../objects/dto/base';
 
 @Component({
     selector: 'app-playlist',
-    imports: [NgForOf, MatSlideToggle, FormsModule],
     templateUrl: './playlist.component.html',
     styleUrl: './playlist.component.css',
+    standalone: false,
 })
 export class PlaylistComponent implements OnInit {
     private playlistId: any;
@@ -56,9 +56,9 @@ export class PlaylistComponent implements OnInit {
 
     toggleRepeat(index: number): void {
         if (this.repeatIndex === index) {
-            this.repeatIndex = null; // Turn off repeat if already set
+            this.repeatIndex = null;
         } else {
-            this.repeatIndex = index; // Set repeat to this song-card
+            this.repeatIndex = index;
         }
     }
 

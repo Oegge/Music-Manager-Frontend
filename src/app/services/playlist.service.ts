@@ -16,11 +16,11 @@ export class PlaylistService {
         return this.http.post<string>(`${this.baseUrl}`, request);
     }
 
-    getAll(): Observable<PlaylistDto[]> {
+    getPlaylists(): Observable<PlaylistDto[]> {
         return this.http.get<PlaylistDto[]>(`${this.baseUrl}`);
     }
 
-    getByCampaign(campaignId: string): Observable<PlaylistDto[]> {
+    getPlaylistsByCampaign(campaignId: string): Observable<PlaylistDto[]> {
         const params = new HttpParams().set('campaignId', campaignId);
         return this.http.get<PlaylistDto[]>(this.baseUrl, { params });
     }

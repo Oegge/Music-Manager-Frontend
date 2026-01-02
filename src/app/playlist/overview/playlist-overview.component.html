@@ -1,39 +1,19 @@
-<div *ngIf="!!currentCampaign">
-    <button
-            type="button"
-            class="btn"
-            (click)="onCreatePlaylist()"
-    >
-        Create New Playlist
-    </button>
-</div>
-<div class="heading-m">Your Playlists</div>
 <div *ngIf="!currentCampaign">Select a Campaign to browse its playlists.</div>
-<div *ngIf="!!currentCampaign" class="playlist-grid">
-    <div class="playlist-card" *ngFor="let playlist of playlists">
-        <div class="card-left" (click)="navigateToPlaylist(playlist.id)">
-            <div class="playlist-link">{{ playlist.name }}</div>
-        </div>
-        <div class="card-right ">
-            <button
-                    class="delete-button"
-                    (click)="openDeleteModal(playlist); $event.stopPropagation()"
-                    aria-label="Delete Playlist"
-            >
-                X
-            </button>
+<ng-container *ngIf="!!currentCampaign">
+    <div class="heading-m">Playlists of {{currentCampaign.name}}</div>
+    <div>
+        <button
+                type="button"
+                class="btn"
+                (click)="onCreatePlaylist()"
+        >
+            Create New Playlist
+        </button>
+    </div>
+    <div class="playlist-grid">
+        <div *ngFor="let playlist of playlists">
+            <app-playlist-card [playlist]="playlist"></app-playlist-card>
         </div>
     </div>
-</div>
+</ng-container>
 
-<modal [isOpen]="isModalOpen">
-    <ng-template #content>
-        <h2>Delete Playlist</h2>
-        <p>Are you sure you want to delete <strong>{{ selectedPlaylist?.name }}</strong>?</p>
-
-        <div class="modal-actions">
-            <button (click)="confirmDelete()" class="confirm-btn">Yes, delete</button>
-            <button (click)="closeModal()" class="cancel-btn">Cancel</button>
-        </div>
-    </ng-template>
-</modal>

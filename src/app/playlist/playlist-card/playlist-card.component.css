@@ -1,0 +1,43 @@
+
+.playlist-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-translucent);
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.playlist-card:hover {
+    background-color: var(--background-color-hover-translucent);
+    border-radius: 1rem;
+    transition: box-shadow 0.3s ease;
+    transform: scale(1.05) ;
+}
+
+.card-left {
+    flex: 1;
+    padding: 1.5rem;
+    cursor: pointer;
+}
+
+.card-right {
+    height: 100%;
+    padding: 1.5rem;
+    background-color: var(--background-color-translucent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-link {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color-solid);
+}
+
+.playlist-link:hover {
+    text-decoration: underline;
+}

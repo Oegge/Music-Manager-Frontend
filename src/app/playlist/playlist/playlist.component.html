@@ -1,38 +1,41 @@
-<h1>{{ playlist?.name }}</h1>
+<div class="heading-m">{{ playlist?.name }}</div>
 <div class="row-menu">
-
-  <div class="fade-toggle">
-    <mat-slide-toggle [(ngModel)]="enableFade">Enable Fade</mat-slide-toggle>
-  </div>
-  <button (click)="pauseAllPlayers()" class="pause-button">
+    <div>
+        <mat-slide-toggle [(ngModel)]="enableFade">Enable Fade</mat-slide-toggle>
+    </div>
+    <button (click)="pauseAllPlayers()" class="btn tiny-icon" [ngClass]="{disabled : isPaused}">
             <span class="material-icons">
-                {{ isPaused ? 'pause' : 'play_arrow' }}
+                {{ isPaused ? 'play_arrow' : 'pause' }}
             </span>
-  </button>
+    </button>
 </div>
 
 <div class="music-grid">
-  <div *ngFor="let song of musicList; let i = index" class="music-card" [class.active]="currentSongIndex === i">
-    <h3 class="song-title">{{ song.title }}</h3>
-    <p class="song-tags">
-      <ng-container *ngFor="let tag of song.tags">
-        <span class="tag">{{ tag.name }}</span>
-      </ng-container>
-    </p>
-    <div class="row">
+    <div *ngFor="let song of musicList; let i = index" class="music-card" [class.active]="currentSongIndex === i">
+        <div class="heading-s song-title">{{ song.title }}</div>
+        <p class="song-tags">
+            <ng-container *ngFor="let tag of song.tags">
+                <span class="tag">{{ tag.name }}</span>
+            </ng-container>
+        </p>
+        <div class="row">
 
-      <button (click)="toggleRepeat(i)" class="repeat-button">
+            <button (click)="toggleRepeat(i)" class="btn">
             <span class="material-icons">
                 {{ repeatIndex === i ? 'repeat_one' : 'repeat' }}
             </span>
-      </button>
-      <button (click)="playSong(i)" class="btn">Play</button>
-      <audio controls
-             [src]="fileService.getFileUrl(song.filePath)"
-             class="audio-player"
-             #audioPlayer
-             (ended)="handleSongEnd(i)">
-      </audio>
+            </button>
+            <button (click)="playSong(i)" class="btn">
+                <span class="material-icons">
+                    {{ 'play_arrow' }}
+                </span>
+            </button>
+            <audio controls
+                   [src]="fileService.getFileUrl(song.filePath)"
+                   class="audio-player"
+                   #audioPlayer
+                   (ended)="handleSongEnd(i)">
+            </audio>
+        </div>
     </div>
-  </div>
 </div>

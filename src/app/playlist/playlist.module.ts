@@ -8,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { BasicModule } from '../basic/basic.module';
 import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { PlaylistCardComponent } from './playlist-card/playlist-card.component';
 
 @NgModule({
     declarations: [
         CreatePlaylistComponent,
         PlaylistOverviewComponent,
         CreatePlaylistComponent,
+        PlaylistComponent,
+        PlaylistCardComponent,
     ],
     imports: [
         CommonModule,

@@ -28,4 +28,8 @@ export class CampaignOverviewComponent implements OnInit {
     createCampaign(): void {
         this.router.navigate(['/campaign/create']);
     }
+
+    onShowDetails(campaign: Campaign): void {
+        this.router.navigate(['/campaign', campaign.id]);
+    }
 }

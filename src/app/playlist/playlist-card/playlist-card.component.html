@@ -1,7 +1,8 @@
-<div class="campaign-card">
-    <div>{{ campaign.name }}</div>
-    <div class="campaign-actions">
-        <button class="btn tight" (click)="onView()">View</button>
+<div class="playlist-card">
+    <div class="card-left" (click)="navigateToPlaylist(playlist.id)">
+        <div class="playlist-link">{{ playlist.name }}</div>
+    </div>
+    <div class="card-right ">
         <button class="btn tight" (click)="onRequestDelete()">Delete</button>
     </div>
 </div>

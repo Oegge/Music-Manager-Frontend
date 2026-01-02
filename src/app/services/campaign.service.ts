@@ -49,15 +49,21 @@ export class CampaignService {
     }
 
     public selectCampaign(selectedCampaign: Campaign | null): void {
-        this.currentCampaignSubject.next(selectedCampaign);
-        if (selectedCampaign) {
-            this.sessionStorageService.setObject<Campaign>(
-                this.CAMPAIGN_STORAGE_KEY,
-                selectedCampaign,
-            );
-        } else {
-            this.sessionStorageService.remove(this.CAMPAIGN_STORAGE_KEY);
+        if (this.currentCampaignSubject.value !== selectedCampaign) {
+            this.currentCampaignSubject.next(selectedCampaign);
+            if (selectedCampaign) {
+                this.sessionStorageService.setObject<Campaign>(
+                    this.CAMPAIGN_STORAGE_KEY,
+                    selectedCampaign,
+                );
+            } else {
+                this.sessionStorageService.remove(this.CAMPAIGN_STORAGE_KEY);
+            }
         }
+    }
+
+    public getCampaign(campaignId: string) {
+        return this.http.get<Campaign>(`${this.baseUrl}/${campaignId}`);
     }
 
     private refreshCampaigns() {

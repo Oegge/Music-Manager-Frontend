@@ -68,7 +68,7 @@ export class CreatePlaylistComponent implements OnInit {
     loadMusic(): void {
         if (this.campaign) {
             this.musicService
-                .getMusicForCampaign(this.campaign.id)
+                .getSongsByCampaign(this.campaign.id)
                 .subscribe((data) => {
                     this.allSongs = data;
                     this.musicList = this.allSongs;

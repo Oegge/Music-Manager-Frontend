@@ -1,7 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    DestroyRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { Campaign, SongDto, Tag } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-song-collection',
@@ -27,18 +35,21 @@ export class SongCollectionComponent implements OnInit {
     constructor(
         private musicService: MusicService,
         private campaignService: CampaignService,
+        private destroyRef: DestroyRef,
     ) {}
 
     ngOnInit(): void {
         if (this.scopeCampaign) {
-            this.campaignService.currentCampaign$.subscribe((campaign) => {
-                if (this.campaign?.id != campaign?.id) {
-                    this.softResetUserInputs();
-                    this.campaign = campaign;
-                    this.fetchTags();
-                    this.loadMusic();
-                }
-            });
+            this.campaignService.currentCampaign$
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe((campaign) => {
+                    if (this.campaign?.id != campaign?.id) {
+                        this.softResetUserInputs();
+                        this.campaign = campaign;
+                        this.fetchTags();
+                        this.loadMusic();
+                    }
+                });
         } else {
             this.fetchTags();
             this.loadMusic();
@@ -116,7 +127,7 @@ export class SongCollectionComponent implements OnInit {
         if (this.scopeCampaign) {
             if (!!this.campaign) {
                 this.musicService
-                    .getMusicForCampaign(this.campaign.id)
+                    .getSongsByCampaign(this.campaign.id)
                     .subscribe({
                         next: (data) => {
                             this.allSongs = data as SongDto[];
@@ -131,7 +142,7 @@ export class SongCollectionComponent implements OnInit {
                     });
             }
         } else {
-            this.musicService.getMusicList().subscribe({
+            this.musicService.getSongs().subscribe({
                 next: (data) => {
                     this.allSongs = data as SongDto[];
                     this.applyFilters();

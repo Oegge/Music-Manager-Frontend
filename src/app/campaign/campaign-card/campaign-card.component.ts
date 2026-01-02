@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Campaign } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
 
@@ -14,6 +14,7 @@ export class CampaignCardComponent implements OnInit {
     protected deletionRequested = false;
 
     @Input() campaign!: Campaign;
+    @Output() onShowDetails = new EventEmitter<Campaign>();
 
     constructor(campaignService: CampaignService) {
         this.campaignService = campaignService;
@@ -21,6 +22,10 @@ export class CampaignCardComponent implements OnInit {
 
     ngOnInit(): void {
         this.deleteQuestion = `Do you want to delete ${this.campaign.name}?`;
+    }
+
+    onView(): void {
+        this.onShowDetails.emit(this.campaign);
     }
 
     onRequestDelete(): void {

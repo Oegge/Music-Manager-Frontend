@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { Campaign } from '../../../objects/dto/base';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-campaign-songs',
@@ -10,11 +11,16 @@ import { Campaign } from '../../../objects/dto/base';
 })
 export class CampaignSongsComponent implements OnInit {
     public campaign: Campaign | null = null;
-    constructor(private _campaignService: CampaignService) {}
+    constructor(
+        private _campaignService: CampaignService,
+        private destroyRef: DestroyRef,
+    ) {}
 
     ngOnInit(): void {
-        this._campaignService.currentCampaign$.subscribe((campaign) => {
-            this.campaign = campaign;
-        });
+        this._campaignService.currentCampaign$
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((campaign) => {
+                this.campaign = campaign;
+            });
     }
 }

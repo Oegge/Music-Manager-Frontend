@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
 import { Campaign, PlaylistDto } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-overview',
@@ -11,9 +12,8 @@ import { CampaignService } from '../../services/campaign.service';
     styleUrl: './playlist-overview.component.css',
 })
 export class PlaylistOverviewComponent implements OnInit {
+    private destroyRef = inject(DestroyRef);
     playlists: PlaylistDto[] = [];
-    selectedPlaylist: PlaylistDto | null = null;
-    isModalOpen = false;
     currentCampaign: Campaign | null = null;
 
     constructor(
@@ -23,64 +23,33 @@ export class PlaylistOverviewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.loadPlaylist();
-        this.campaignService.currentCampaign$.subscribe((campaign) => {
-            this.currentCampaign = campaign;
-            this.loadPlaylist();
-        });
+        this.loadPlaylists();
+        this.campaignService.currentCampaign$
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((campaign) => {
+                this.currentCampaign = campaign;
+                this.loadPlaylists();
+            });
     }
 
-    loadPlaylist(): void {
+    loadPlaylists(): void {
         if (!this.currentCampaign) {
             this.playlists = [];
             return;
         }
-        this.playlistService.getByCampaign(this.currentCampaign.id).subscribe({
-            next: (data: PlaylistDto[]) => {
-                this.playlists = data;
-            },
-            error: (error) => {
-                console.error('Failed to load music list', error);
-            },
-        });
-    }
-
-    navigateToPlaylist(id: string): void {
-        console.log(id);
-        this.router.navigate(['/playlist', id]);
+        this.playlistService
+            .getPlaylistsByCampaign(this.currentCampaign.id)
+            .subscribe({
+                next: (data: PlaylistDto[]) => {
+                    this.playlists = data;
+                },
+                error: (error) => {
+                    console.error('Failed to load music list', error);
+                },
+            });
     }
 
     onCreatePlaylist(): void {
         this.router.navigate(['/playlist/create']);
-    }
-
-    openDeleteModal(playlist: PlaylistDto): void {
-        this.isModalOpen = !this.isModalOpen;
-        this.selectedPlaylist = playlist;
-        console.log('Open modal for', playlist);
-    }
-
-    closeModal(): void {
-        this.isModalOpen = false;
-        this.selectedPlaylist = null;
-    }
-
-    confirmDelete(): void {
-        if (this.selectedPlaylist) {
-            this.playlistService
-                .deletePlaylist(this.selectedPlaylist.id)
-                .subscribe({
-                    next: (data) => {
-                        this.loadPlaylist();
-                    },
-                    error: (error) => {
-                        console.error(
-                            'Failed to delete playlist',
-                            this.selectedPlaylist,
-                        );
-                    },
-                });
-            this.closeModal();
-        }
     }
 }

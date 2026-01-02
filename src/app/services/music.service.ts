@@ -12,11 +12,11 @@ export class MusicService {
 
     constructor(private http: HttpClient) {}
 
-    getMusicList(): Observable<SongDto[]> {
+    getSongs(): Observable<SongDto[]> {
         return this.http.get<SongDto[]>(this.baseUrl);
     }
 
-    getMusicForCampaign(campaignId: string): Observable<SongDto[]> {
+    getSongsByCampaign(campaignId: string): Observable<SongDto[]> {
         const params = new HttpParams().set('campaignId', campaignId);
         return this.http.get<SongDto[]>(this.baseUrl, { params });
     }
