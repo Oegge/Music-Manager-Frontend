@@ -1,4 +1,5 @@
-<div>
+<div class="campaign-heading">
+    <div class="heading-m">Your Campaigns</div>
     <button
             type="button"
             class="btn"
@@ -7,7 +8,6 @@
         Create New Campaign
     </button>
 </div>
-<div class="heading-m">Your Campaigns</div>
 <div class="campaign-list">
     <div *ngFor="let campaign of campaigns">
         <app-campaign-card [campaign]="campaign" (onShowDetails)="onShowDetails(campaign)"></app-campaign-card>

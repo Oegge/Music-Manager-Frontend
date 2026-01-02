@@ -1,14 +1,16 @@
 <div *ngIf="!currentCampaign">Select a Campaign to browse its playlists.</div>
 <ng-container *ngIf="!!currentCampaign">
-    <div class="heading-m">Playlists of {{currentCampaign.name}}</div>
-    <div>
-        <button
-                type="button"
-                class="btn"
-                (click)="onCreatePlaylist()"
-        >
-            Create New Playlist
-        </button>
+    <div class="playlist-heading">
+        <div class="heading-m">Playlists of {{currentCampaign.name}}</div>
+        <div>
+            <button
+                    type="button"
+                    class="btn"
+                    (click)="onCreatePlaylist()"
+            >
+                Create New Playlist
+            </button>
+        </div>
     </div>
     <div class="playlist-grid">
         <div *ngFor="let playlist of playlists">
