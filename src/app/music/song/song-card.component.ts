@@ -16,10 +16,10 @@ import { SongDto, Tag } from '../../../objects/dto/base';
 @Component({
     selector: 'app-song',
     standalone: false,
-    templateUrl: './song.component.html',
-    styleUrl: './song.component.css',
+    templateUrl: './song-card.component.html',
+    styleUrl: './song-card.component.css',
 })
-export class SongComponent implements OnInit {
+export class SongCardComponent implements OnInit {
     @Input() song!: SongDto;
     private _playing = false;
     @Input() set playing(value: boolean) {
