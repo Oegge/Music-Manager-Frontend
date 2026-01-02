@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Campaign } from '../../objects/dto/base';
+import { SessionStorageService } from './session-storage.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CampaignService {
     private baseUrl = environment.apiUrl + 'api/campaign';
-
+    private readonly CAMPAIGN_STORAGE_KEY = 'current.campaign';
     private readonly campaignsSubject = new BehaviorSubject<Campaign[]>([]);
     public readonly campaigns$ = this.campaignsSubject.asObservable();
 
@@ -19,7 +20,13 @@ export class CampaignService {
     public readonly currentCampaign$ =
         this.currentCampaignSubject.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private sessionStorageService: SessionStorageService,
+    ) {
+        this.currentCampaignSubject.next(
+            this.sessionStorageService.getObject(this.CAMPAIGN_STORAGE_KEY),
+        );
         this.refreshCampaigns();
     }
 
@@ -43,6 +50,14 @@ export class CampaignService {
 
     public selectCampaign(selectedCampaign: Campaign | null): void {
         this.currentCampaignSubject.next(selectedCampaign);
+        if (selectedCampaign) {
+            this.sessionStorageService.setObject<Campaign>(
+                this.CAMPAIGN_STORAGE_KEY,
+                selectedCampaign,
+            );
+        } else {
+            this.sessionStorageService.remove(this.CAMPAIGN_STORAGE_KEY);
+        }
     }
 
     private refreshCampaigns() {
