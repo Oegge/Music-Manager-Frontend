@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     private destroyRef = inject(DestroyRef);
     public faBook = faBook;
     public campaigns: Campaign[] = [];
-    public currentCampaign?: Campaign;
+    public currentCampaign: Campaign | null = null;
 
     constructor(campaignService: CampaignService) {
         this.campaignService = campaignService;
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
 
     public onCampaignIdChange(campaignId: string): void {
         if (!campaignId) {
-            this.campaignService.selectCampaign(undefined);
+            this.campaignService.selectCampaign(null);
             return;
         }
 

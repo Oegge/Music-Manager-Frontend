@@ -13,9 +13,8 @@ export class CampaignService {
     private readonly campaignsSubject = new BehaviorSubject<Campaign[]>([]);
     public readonly campaigns$ = this.campaignsSubject.asObservable();
 
-    private readonly currentCampaignSubject = new BehaviorSubject<
-        Campaign | undefined
-    >(undefined);
+    private readonly currentCampaignSubject =
+        new BehaviorSubject<Campaign | null>(null);
 
     public readonly currentCampaign$ =
         this.currentCampaignSubject.asObservable();
@@ -42,7 +41,7 @@ export class CampaignService {
         );
     }
 
-    public selectCampaign(selectedCampaign?: Campaign): void {
+    public selectCampaign(selectedCampaign: Campaign | null): void {
         this.currentCampaignSubject.next(selectedCampaign);
     }
 
@@ -52,7 +51,7 @@ export class CampaignService {
                 this.campaignsSubject.next(cs);
                 const current = this.currentCampaignSubject.value;
                 if (!!current && !cs.some((c) => c.id === current.id)) {
-                    this.currentCampaignSubject.next(undefined);
+                    this.currentCampaignSubject.next(null);
                 }
             },
             error: (err) => console.error('refreshing campaigns failed', err),

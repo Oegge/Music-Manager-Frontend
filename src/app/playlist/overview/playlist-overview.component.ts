@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
-import { PlaylistDto } from '../../../objects/dto/base';
+import { Campaign, PlaylistDto } from '../../../objects/dto/base';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
     selector: 'app-overview',
@@ -13,18 +14,28 @@ export class PlaylistOverviewComponent implements OnInit {
     playlists: PlaylistDto[] = [];
     selectedPlaylist: PlaylistDto | null = null;
     isModalOpen = false;
+    currentCampaign: Campaign | null = null;
 
     constructor(
         private playlistService: PlaylistService,
+        private campaignService: CampaignService,
         private router: Router,
     ) {}
 
     ngOnInit() {
         this.loadPlaylist();
+        this.campaignService.currentCampaign$.subscribe((campaign) => {
+            this.currentCampaign = campaign;
+            this.loadPlaylist();
+        });
     }
 
     loadPlaylist(): void {
-        this.playlistService.getAll().subscribe({
+        if (!this.currentCampaign) {
+            this.playlists = [];
+            return;
+        }
+        this.playlistService.getByCampaign(this.currentCampaign.id).subscribe({
             next: (data: PlaylistDto[]) => {
                 this.playlists = data;
             },

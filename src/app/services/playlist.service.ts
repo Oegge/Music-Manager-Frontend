@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { PlaylistDto } from '../../objects/dto/base';
@@ -8,7 +8,7 @@ import { PlaylistDto } from '../../objects/dto/base';
     providedIn: 'root',
 })
 export class PlaylistService {
-    private baseUrl = environment.apiUrl + 'api/Playlist';
+    private baseUrl = environment.apiUrl + 'api/playlist';
 
     constructor(private http: HttpClient) {}
 
@@ -18,6 +18,11 @@ export class PlaylistService {
 
     getAll(): Observable<PlaylistDto[]> {
         return this.http.get<PlaylistDto[]>(`${this.baseUrl}`);
+    }
+
+    getByCampaign(campaignId: string): Observable<PlaylistDto[]> {
+        const params = new HttpParams().set('campaignId', campaignId);
+        return this.http.get<PlaylistDto[]>(this.baseUrl, { params });
     }
 
     get(playlistId: string): Observable<PlaylistDto> {

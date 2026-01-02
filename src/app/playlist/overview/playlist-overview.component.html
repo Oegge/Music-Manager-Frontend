@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!!currentCampaign">
     <button
             type="button"
             class="btn"
@@ -8,7 +8,8 @@
     </button>
 </div>
 <div class="heading-m">Your Playlists</div>
-<div class="playlist-grid">
+<div *ngIf="!currentCampaign">Select a Campaign to browse its playlists.</div>
+<div *ngIf="!!currentCampaign" class="playlist-grid">
     <div class="playlist-card" *ngFor="let playlist of playlists">
         <div class="card-left" (click)="navigateToPlaylist(playlist.id)">
             <div class="playlist-link">{{ playlist.name }}</div>
