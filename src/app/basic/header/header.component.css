@@ -4,12 +4,12 @@
     z-index: 1000;
     display: flex;
     align-items: center;
-    height: clamp(50px, 8vh, 300px);
+    height: clamp(55px, 6vh, 200px);
     box-sizing: border-box;
     padding: 0 2rem;
     background: var(--background-color-solid);
     border-bottom: 1px solid var(--border-color-solid);
-    font-size: calc(clamp(50px, 8vh, 300px) * 0.3);
+    font-size: calc(clamp(55px, 6vh, 200px) * 0.3);
 }
 
 .logo {
