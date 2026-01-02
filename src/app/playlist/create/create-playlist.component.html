@@ -1,65 +1,62 @@
 <div class="container">
-  <header>
-    <h1>Create Your Playlist</h1>
-    <p>Select songs and filter by tags</p>
-  </header>
-
-  <div class="row">
     <div>
-      <mat-slide-toggle [(ngModel)]="useAndFilter" (change)="applyFilters()" color="primary">
-        Use AND logic for tag filtering
-      </mat-slide-toggle>
-
-
-      <div class="search-filter-area">
-        <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
-               (input)="applyFilters()">
-
-        <mat-form-field appearance="fill">
-          <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
-            <mat-option *ngFor="let tag of availableTags" [value]="tag">
-              {{ tag.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
-      </div>
-      <div class="tags-container">
-        <span *ngFor="let tag of selectedTags" class="tag">{{ tag.name }}</span>
-      </div>
+        <div class="heading-m">Create Your Playlist</div>
+        <p>Select songs and filter by tags</p>
     </div>
 
-    <div class="song-list">
-      <div *ngFor="let song of musicList; let i = index" class="song-entry">
-        <span>{{ song.title }}</span> <!-- Song title -->
-        <div class="tags-container">
-          <span *ngFor="let tag of song.tags" class="tag">{{ tag.name }}</span>
+    <div class="row">
+        <div>
+            <mat-slide-toggle [(ngModel)]="useAndFilter" (change)="applyFilters()" color="primary">
+                Use AND logic for tag filtering
+            </mat-slide-toggle>
+
+
+            <div class="search-filter-area">
+                <input class="search value-input" type="text" placeholder="Search songs..." [(ngModel)]="searchText"
+                       (input)="applyFilters()">
+
+                <mat-form-field appearance="fill">
+                    <mat-select multiple [(ngModel)]="selectedTags" (selectionChange)="applyFilters()">
+                        <mat-option *ngFor="let tag of availableTags" [value]="tag">
+                            {{ tag.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+            <div class="tags-container">
+                <span *ngFor="let tag of selectedTags" class="tag">{{ tag.name }}</span>
+            </div>
         </div>
-        <button (click)="addToPlaylist(song)">Add</button>
-        <audio controls
-               [src]="fileService.getFileUrl(song.filePath)"
-               class="audio-player"
-               #audioPlayer
-               (ended)="handleSongEnd(i)">
-        </audio>
-      </div>
-    </div>
 
-  </div>
-  <div>
+        <div class="song-list">
+            <div *ngFor="let song of musicList; let i = index" class="song-entry">
+                <span>{{ song.title }}</span> <!-- Song title -->
+                <div class="tags-container">
+                    <span *ngFor="let tag of song.tags" class="tag">{{ tag.name }}</span>
+                </div>
+                <button (click)="addToPlaylist(song)">Add</button>
+                <audio controls
+                       [src]="fileService.getFileUrl(song.filePath)"
+                       class="audio-player"
+                       #audioPlayer
+                       (ended)="handleSongEnd(i)">
+                </audio>
+            </div>
+        </div>
 
-    <hr>
-  </div>
-  <div class="playlist-area">
-    <input class="name value-input" type="text" placeholder="Playlist Name" [(ngModel)]="playlistName">
-    <div cdkDropList class="playlist-list" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let song of playlist; let i = index" cdkDrag class="playlist-entry">
-        <span>{{ song.title }}</span>
-        <button (click)="removeFromPlaylist(i)">Remove</button>
-      </div>
     </div>
-    <button (click)="savePlaylist()">Save Playlist</button>
-    <button (click)="cancel()">Cancel</button>
-  </div>
+    <app-prominent-divider label="Your New Playlist"></app-prominent-divider>
+    <div class="playlist-area">
+        <input class="name value-input" type="text" placeholder="Playlist Name" [(ngModel)]="playlistName">
+        <div cdkDropList class="playlist-list" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let song of playlist; let i = index" cdkDrag class="playlist-entry">
+                <span>{{ song.title }}</span>
+                <button (click)="removeFromPlaylist(i)">Remove</button>
+            </div>
+        </div>
+        <button (click)="savePlaylist()">Save Playlist</button>
+        <button (click)="cancel()">Cancel</button>
+    </div>
 </div>

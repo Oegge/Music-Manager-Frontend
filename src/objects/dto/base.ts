@@ -20,5 +20,11 @@ export interface PlaylistDto {
     songs: SongDto[];
     name: string;
     id: string;
-    campaigns: Campaign[];
+    campaign: Campaign;
+}
+
+export interface CreatePlaylistRequestDto {
+    songIds: string[];
+    name: string;
+    campaignId: string;
 }

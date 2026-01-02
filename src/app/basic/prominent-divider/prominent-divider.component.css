@@ -1,0 +1,12 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.divider {
+    position: relative;
+    width: 100%;
+    border-bottom: 2px solid var(--border-color-solid);
+    font-weight: bold;
+    color: var(--text-color-highlight-solid);
+}

@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.divider {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid var(--text-color-ui-darker);
+    font-size: 0.875rem;
+    font-stretch: condensed;
+    color: var(--text-color-highlight-solid);
+}

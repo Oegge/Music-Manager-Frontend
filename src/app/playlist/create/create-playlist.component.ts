@@ -10,13 +10,19 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
 import { FileService } from '../../services/file.service';
-import { SongDto, Tag } from '../../../objects/dto/base';
+import {
+    Campaign,
+    CreatePlaylistRequestDto,
+    SongDto,
+    Tag,
+} from '../../../objects/dto/base';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
     selector: 'app-create',
     templateUrl: './create-playlist.component.html',
-    standalone: false,
     styleUrls: ['./create-playlist.component.css'],
+    standalone: false,
 })
 export class CreatePlaylistComponent implements OnInit {
     musicList: SongDto[] = [];
@@ -25,19 +31,32 @@ export class CreatePlaylistComponent implements OnInit {
     selectedTags: Tag[] = [];
     playlistName: string = '';
     searchText: string = '';
-    private allSongs: SongDto[] = [];
     useAndFilter: boolean = false;
+
+    protected campaign?: Campaign;
+    private allSongs: SongDto[] = [];
 
     constructor(
         private musicService: MusicService,
         private playlistService: PlaylistService,
+        private campaignService: CampaignService,
         private router: Router,
         public fileService: FileService,
     ) {}
 
     ngOnInit(): void {
-        this.fetchTags();
-        this.loadMusic();
+        this.campaignService.currentCampaign$.subscribe((campaign) => {
+            if (
+                !campaign ||
+                (!!this.campaign && campaign.id != this.campaign.id)
+            ) {
+                this.getRekt();
+            } else {
+                this.campaign = campaign;
+                this.fetchTags();
+                this.loadMusic();
+            }
+        });
     }
 
     fetchTags(): void {
@@ -47,10 +66,14 @@ export class CreatePlaylistComponent implements OnInit {
     }
 
     loadMusic(): void {
-        this.musicService.getMusicList().subscribe((data) => {
-            this.allSongs = data;
-            this.musicList = this.allSongs;
-        });
+        if (this.campaign) {
+            this.musicService
+                .getMusicForCampaign(this.campaign.id)
+                .subscribe((data) => {
+                    this.allSongs = data;
+                    this.musicList = this.allSongs;
+                });
+        }
     }
 
     applyFilters(): void {
@@ -66,7 +89,6 @@ export class CreatePlaylistComponent implements OnInit {
         }
 
         // Apply tag filter
-
         if (this.selectedTags.length) {
             if (this.useAndFilter) {
                 // AND logic: every selected tag must be present
@@ -102,9 +124,10 @@ export class CreatePlaylistComponent implements OnInit {
     }
 
     savePlaylist(): void {
-        const data = {
+        const data: CreatePlaylistRequestDto = {
             name: this.playlistName,
-            songs: this.playlist.map((song) => song.id),
+            campaignId: this.campaign?.id ?? '',
+            songIds: this.playlist.map((song) => song.id),
         };
 
         this.playlistService.create(data).subscribe({
@@ -120,7 +143,6 @@ export class CreatePlaylistComponent implements OnInit {
     }
 
     cancel(): void {
-        // Logic to clear or reset the playlist
         this.playlist = [];
         this.playlistName = '';
     }
@@ -133,5 +155,10 @@ export class CreatePlaylistComponent implements OnInit {
 
     handleSongEnd(index: number): void {
         this.playSong(index); // Repeat the same song
+    }
+
+    private getRekt(): void {
+        console.log('Aborted playlist creation');
+        this.router.navigate(['/playlist/overview']);
     }
 }

@@ -7,9 +7,17 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { SubtleDividerComponent } from './subtle-divider/subtle-divider.component';
+import { ProminentDividerComponent } from './prominent-divider/prominent-divider.component';
 
 @NgModule({
-    declarations: [ModalComponent, HeaderComponent, ConfirmComponent],
+    declarations: [
+        ModalComponent,
+        HeaderComponent,
+        ConfirmComponent,
+        SubtleDividerComponent,
+        ProminentDividerComponent,
+    ],
     imports: [
         CommonModule,
         RouterLink,
@@ -17,6 +25,12 @@ import { ConfirmComponent } from './confirm/confirm.component';
         FontAwesomeModule,
         TruncatePipe,
     ],
-    exports: [ModalComponent, HeaderComponent, ConfirmComponent],
+    exports: [
+        ModalComponent,
+        HeaderComponent,
+        ConfirmComponent,
+        SubtleDividerComponent,
+        ProminentDividerComponent,
+    ],
 })
 export class BasicModule {}

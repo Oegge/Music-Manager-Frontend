@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SongDto, Tag } from '../../objects/dto/base';
@@ -14,6 +14,11 @@ export class MusicService {
 
     getMusicList(): Observable<SongDto[]> {
         return this.http.get<SongDto[]>(this.baseUrl);
+    }
+
+    getMusicForCampaign(campaignId: string): Observable<SongDto[]> {
+        const params = new HttpParams().set('campaignId', campaignId);
+        return this.http.get<SongDto[]>(this.baseUrl, { params });
     }
 
     getTags(): Observable<Tag[]> {
