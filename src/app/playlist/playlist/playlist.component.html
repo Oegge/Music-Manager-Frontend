@@ -1,6 +1,6 @@
 <div class="heading-m">{{ playlist?.name }}</div>
 <div class="row-menu">
-    <button (click)="pauseAllPlayers()" class="btn tiny-icon" [ngClass]="{disabled : isPaused}">
+    <button (click)="pauseAllPlayers()" class="btn tiny-icon" [ngClass]="{disabled : isPaused || currentSongIndex === null}">
             <span class="material-icons">
                 {{ isPaused ? 'play_arrow' : 'pause' }}
             </span>
