@@ -1,11 +1,11 @@
 <div class="heading-l">{{campaign.name}}</div>
 <div class="song-area">
-    <div class="heading-s"> {{songs.length}} Songs</div>
+    <div class="heading-s"> {{songs.length}} {{ songs.length === 1 ? 'Song' : 'Songs' }}</div>
     <button class="btn" (click)="onGoToSongs()">Take me there</button>
     <button class="btn" (click)="onAddSongs()">Add Songs</button>
     <button class="btn" (click)="onRemoveSongs()">Remove Songs</button>
 </div>
 <div>
-    <div class="heading-s"> {{playlists.length}} Playlists</div>
+    <div class="heading-s"> {{playlists.length}} {{ playlists.length === 1 ? 'Playlist' : 'Playlists' }}</div>
     <button class="btn" (click)="onGoToPlaylists()">Take me there</button>
 </div>

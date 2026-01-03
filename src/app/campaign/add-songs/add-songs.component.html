@@ -1,6 +1,6 @@
 <div *ngIf="!!campaign">
     <div class="add-songs-headline">
-        <div class="heading-m">Select Songs to add to {{ campaign.name }}</div>
+        <div class="heading-m">Add new Songs to {{ campaign.name }}</div>
         <button class="btn" (click)="onAddSongs()">Add Selected Songs</button>
     </div>
     <app-song-collection [scopeCampaign]="true" [allowTagging]="false" [allowSelecting]="true" [invertScope]="true"
