@@ -1,6 +1,8 @@
 import {
     Component,
+    DestroyRef,
     ElementRef,
+    inject,
     OnInit,
     QueryList,
     ViewChildren,
@@ -17,6 +19,7 @@ import {
     Tag,
 } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-create',
@@ -25,6 +28,7 @@ import { CampaignService } from '../../services/campaign.service';
     standalone: false,
 })
 export class CreatePlaylistComponent implements OnInit {
+    private destroyRef = inject(DestroyRef);
     musicList: SongDto[] = [];
     playlist: SongDto[] = [];
     availableTags: Tag[] = [];
@@ -45,18 +49,20 @@ export class CreatePlaylistComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.campaignService.currentCampaign$.subscribe((campaign) => {
-            if (
-                !campaign ||
-                (!!this.campaign && campaign.id != this.campaign.id)
-            ) {
-                this.getRekt();
-            } else {
-                this.campaign = campaign;
-                this.fetchTags();
-                this.loadMusic();
-            }
-        });
+        this.campaignService.currentCampaign$
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((campaign) => {
+                if (
+                    !campaign ||
+                    (!!this.campaign && campaign.id != this.campaign.id)
+                ) {
+                    this.getRekt();
+                } else {
+                    this.campaign = campaign;
+                    this.fetchTags();
+                    this.loadMusic();
+                }
+            });
     }
 
     fetchTags(): void {

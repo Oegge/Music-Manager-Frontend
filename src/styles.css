@@ -108,6 +108,7 @@ svg {
 }
 
 .text {
+  color: var(--text-color-solid);
   pointer-events: none;
 }
 

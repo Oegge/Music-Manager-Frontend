@@ -12,12 +12,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class CampaignSongsComponent implements OnInit {
     public campaign: Campaign | null = null;
     constructor(
-        private _campaignService: CampaignService,
+        private campaignService: CampaignService,
         private destroyRef: DestroyRef,
     ) {}
 
     ngOnInit(): void {
-        this._campaignService.currentCampaign$
+        this.campaignService.currentCampaign$
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((campaign) => {
                 this.campaign = campaign;
