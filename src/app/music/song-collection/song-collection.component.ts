@@ -72,6 +72,15 @@ export class SongCollectionComponent implements OnInit {
         }
     }
 
+    onSelectAll(): void {
+        if (this.allowSelecting) {
+            for (const song of this.filteredSongs) {
+                this.selectedSongIds.add(song.id);
+            }
+            this.songIdsSelected.emit(this.selectedSongIds);
+        }
+    }
+
     playNextSong(currentSongId: string): void {
         const index = this.getSongIndex(currentSongId);
         let nextIndex = (index + 1) % this.filteredSongs.length;
