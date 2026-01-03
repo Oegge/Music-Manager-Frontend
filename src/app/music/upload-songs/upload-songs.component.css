@@ -52,7 +52,8 @@ input[type="text"]:hover {
     margin: 12px 0;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-solid);
+    background-color: var(--background-color-translucent);
 }
 
 .rename-row {
@@ -64,7 +65,7 @@ input[type="text"]:hover {
 
 .error {
     margin-top: 6px;
-    color: #c00;
+    color: var(--text-color-highlight-solid);
 }
 
 .hint {
