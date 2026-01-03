@@ -9,6 +9,8 @@ import { BasicModule } from '../basic/basic.module';
 import { CdkStepLabel } from '@angular/cdk/stepper';
 import { CampaignDetailComponent } from './campaign-detail/campaign-detail.component';
 import { MusicModule } from '../music/music.module';
+import { AddSongsComponent } from './add-songs/add-songs.component';
+import { RemoveSongsComponent } from './remove-songs/remove-songs.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +18,8 @@ import { MusicModule } from '../music/music.module';
         CreateCampaignComponent,
         CampaignCardComponent,
         CampaignDetailComponent,
+        AddSongsComponent,
+        RemoveSongsComponent,
     ],
     imports: [
         CommonModule,

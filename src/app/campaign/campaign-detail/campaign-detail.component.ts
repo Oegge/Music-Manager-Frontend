@@ -55,4 +55,14 @@ export class CampaignDetailComponent implements OnInit {
         this.campaignService.selectCampaign(this.campaign);
         this.router.navigate(['/playlist/overview']);
     }
+
+    public onAddSongs() {
+        this.campaignService.selectCampaign(this.campaign);
+        this.router.navigate(['/music/library']);
+    }
+
+    public onRemoveSongs() {
+        this.campaignService.selectCampaign(this.campaign);
+        this.router.navigate(['/music/library']);
+    }
 }

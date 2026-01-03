@@ -1,9 +1,13 @@
-:host{
+:host {
     display: flex;
     flex-direction: column;
     padding: 1rem;
 }
 
-.toggle{
+.toggle {
     cursor: pointer;
+}
+
+.song-area {
+    margin-bottom: 1rem;
 }
