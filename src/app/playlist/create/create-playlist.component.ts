@@ -139,13 +139,12 @@ export class CreatePlaylistComponent implements OnInit {
         this.playlistService.create(data).subscribe({
             next: (response) => {
                 console.log('Playlist saved successfully', response);
-                return;
+                this.router.navigate(['playlist/overview']);
             },
             error: (error) => {
                 console.error('Error saving playlist:', error);
             },
         });
-        this.router.navigate(['playlist/overview']);
     }
 
     cancel(): void {

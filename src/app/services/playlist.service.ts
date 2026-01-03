@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { PlaylistDto } from '../../objects/dto/base';
+import { Campaign, PlaylistDto } from '../../objects/dto/base';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PlaylistService {
     private baseUrl = environment.apiUrl + 'api/playlist';
+    private readonly campaignsSubject = new BehaviorSubject<PlaylistDto[]>([]);
+    public readonly campaigns$ = this.campaignsSubject.asObservable();
 
     constructor(private http: HttpClient) {}
 

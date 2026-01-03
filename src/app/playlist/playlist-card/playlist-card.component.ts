@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PlaylistDto } from '../../../objects/dto/base';
 import { PlaylistService } from '../../services/playlist.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PlaylistCardComponent implements OnInit {
     @Input() playlist!: PlaylistDto;
+    @Output() deleted = new EventEmitter();
 
     protected deleteQuestion = 'Do you want to delete this playlist?';
     protected deletionRequested = false;
@@ -39,6 +40,7 @@ export class PlaylistCardComponent implements OnInit {
     public onDelete() {
         if (this.playlist) {
             this.playlistService.deletePlaylist(this.playlist.id).subscribe();
+            this.deleted.emit();
         }
     }
 }

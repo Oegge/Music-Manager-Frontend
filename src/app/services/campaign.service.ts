@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Campaign } from '../../objects/dto/base';
-import { SessionStorageService } from './session-storage.service';
+import { RefreshPersistingStorageService } from './refresh-persisting-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +22,7 @@ export class CampaignService {
 
     constructor(
         private http: HttpClient,
-        private sessionStorageService: SessionStorageService,
+        private sessionStorageService: RefreshPersistingStorageService,
     ) {
         this.currentCampaignSubject.next(
             this.sessionStorageService.getObject(this.CAMPAIGN_STORAGE_KEY),

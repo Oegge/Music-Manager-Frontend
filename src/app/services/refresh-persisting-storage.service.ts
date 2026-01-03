@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class SessionStorageService {
+export class RefreshPersistingStorageService {
     set(key: string, value: string): void {
-        sessionStorage.setItem(key, value);
+        localStorage.setItem(key, value);
     }
 
     get(key: string): string | null {
-        return sessionStorage.getItem(key);
+        return localStorage.getItem(key);
     }
 
     setObject<T>(key: string, value: T): void {
-        sessionStorage.setItem(key, JSON.stringify(value));
+        localStorage.setItem(key, JSON.stringify(value));
     }
 
     getObject<T>(key: string): T | null {
-        const raw = sessionStorage.getItem(key);
+        const raw = localStorage.getItem(key);
         return raw ? (JSON.parse(raw) as T) : null;
     }
 
     remove(key: string): void {
-        sessionStorage.removeItem(key);
+        localStorage.removeItem(key);
     }
 }

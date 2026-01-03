@@ -1,17 +1,19 @@
 import {
     Component,
+    DestroyRef,
     ElementRef,
+    inject,
     OnInit,
     QueryList,
     ViewChildren,
 } from '@angular/core';
 import { PlaylistService } from '../../services/playlist.service';
-import { ActivatedRoute } from '@angular/router';
-import { NgForOf } from '@angular/common';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from '../../services/file.service';
 import { PlaylistDto, SongDto } from '../../../objects/dto/base';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CampaignService } from '../../services/campaign.service';
+import { finalize, take } from 'rxjs';
 
 @Component({
     selector: 'app-playlist',
@@ -20,11 +22,12 @@ import { PlaylistDto, SongDto } from '../../../objects/dto/base';
     standalone: false,
 })
 export class PlaylistComponent implements OnInit {
+    private destroyRef = inject(DestroyRef);
     private playlistId: any;
+    @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
     playlist?: PlaylistDto;
     musicList: SongDto[] = [];
-    repeatIndex: number | null = null; // To keep track of which song-card to repeat
-    @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef>;
+    repeatIndex: number | null = null;
     enableFade: boolean = false;
     isPaused: boolean = false;
     currentSongIndex: number | null = null;
@@ -32,26 +35,48 @@ export class PlaylistComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private playlistService: PlaylistService,
+        private campaignService: CampaignService,
+        private router: Router,
         public fileService: FileService,
     ) {}
 
     ngOnInit() {
         this.route.paramMap.subscribe((params) => {
             this.playlistId = params.get('playlistId');
+            this.loadPlaylist();
         });
-        this.loadPlaylist();
     }
 
     loadPlaylist(): void {
-        this.playlistService.get(this.playlistId).subscribe({
-            next: (data) => {
-                this.playlist = data;
-                this.musicList = this.playlist.songs;
-            },
-            error: (error) => {
-                console.error('Failed to load music list', error);
-            },
-        });
+        this.playlistService
+            .get(this.playlistId)
+            .pipe(
+                take(1),
+                finalize(() => {
+                    this.campaignService.currentCampaign$
+                        .pipe(takeUntilDestroyed(this.destroyRef))
+                        .subscribe((campaign) => {
+                            console.log('checking for reking');
+                            console.log(campaign);
+                            console.log(this.playlist);
+                            if (
+                                !campaign ||
+                                campaign.id != this.playlist?.campaign?.id
+                            ) {
+                                this.getRekt();
+                            }
+                        });
+                }),
+            )
+            .subscribe({
+                next: (data) => {
+                    this.playlist = data;
+                    this.musicList = this.playlist.songs;
+                },
+                error: (error) => {
+                    console.error('Failed to load music list', error);
+                },
+            });
     }
 
     toggleRepeat(index: number): void {
@@ -155,5 +180,10 @@ export class PlaylistComponent implements OnInit {
             }
         });
         this.isPaused = true;
+    }
+
+    private getRekt(): void {
+        console.log('Campaign changed. Reroute to Playlist Overview.');
+        this.router.navigate(['/playlist/overview']);
     }
 }

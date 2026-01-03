@@ -10,17 +10,14 @@
     transition: box-shadow 0.3s ease;
 }
 
-.playlist-card:hover {
-    background-color: var(--background-color-hover-translucent);
-    border-radius: 1rem;
-    transition: box-shadow 0.3s ease;
-    transform: scale(1.05) ;
-}
-
 .card-left {
     flex: 1;
     padding: 1.5rem;
     cursor: pointer;
+}
+
+.card-left:hover {
+    background-color: var(--background-color-hover-solid);
 }
 
 .card-right {
@@ -34,10 +31,6 @@
 
 .playlist-link {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: bold;
     color: var(--text-color-solid);
-}
-
-.playlist-link:hover {
-    text-decoration: underline;
 }

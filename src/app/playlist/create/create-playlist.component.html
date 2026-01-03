@@ -6,10 +6,10 @@
 
     <div class="row">
         <div>
-            <mat-slide-toggle [(ngModel)]="useAndFilter" (change)="applyFilters()" >
-              <div class="text">
-                Use AND logic for tag filtering
-              </div>
+            <mat-slide-toggle [(ngModel)]="useAndFilter" (change)="applyFilters()">
+                <div class="text">
+                    Use AND logic for tag filtering
+                </div>
             </mat-slide-toggle>
 
 
@@ -38,7 +38,7 @@
                 <div class="tags-container">
                     <span *ngFor="let tag of song.tags" class="tag">{{ tag.name }}</span>
                 </div>
-                <button (click)="addToPlaylist(song)">Add</button>
+                <button (click)="addToPlaylist(song)" class="btn tight">Add</button>
                 <audio controls
                        [src]="fileService.getFileUrl(song.filePath)"
                        class="audio-player"
@@ -55,10 +55,10 @@
         <div cdkDropList class="playlist-list" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
             <div *ngFor="let song of playlist; let i = index" cdkDrag class="playlist-entry">
                 <span>{{ song.title }}</span>
-                <button (click)="removeFromPlaylist(i)">Remove</button>
+                <button (click)="removeFromPlaylist(i)" class="btn tight">Remove</button>
             </div>
         </div>
-        <button (click)="savePlaylist()">Save Playlist</button>
-        <button (click)="cancel()">Cancel</button>
+        <button (click)="savePlaylist()" class="btn" [ngClass]="{disabled: playlistName==''}">Save Playlist</button>
+        <button (click)="cancel()" class="btn">Cancel</button>
     </div>
 </div>

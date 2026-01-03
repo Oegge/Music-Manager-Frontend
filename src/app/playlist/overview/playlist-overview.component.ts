@@ -52,4 +52,8 @@ export class PlaylistOverviewComponent implements OnInit {
     onCreatePlaylist(): void {
         this.router.navigate(['/playlist/create']);
     }
+
+    onPlaylistDeleted(playlist: PlaylistDto) {
+        this.loadPlaylists();
+    }
 }
