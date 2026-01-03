@@ -21,6 +21,7 @@ export class SongCollectionComponent implements OnInit {
     @Input() scopeCampaign = false;
     @Input() allowTagging = false;
     @Input() allowSelecting = false;
+    @Input() invertScope = false;
     @Output() songIdsSelected = new EventEmitter<Set<string>>();
     allSongs: SongDto[] = [];
     filteredSongs: SongDto[] = [];
@@ -126,20 +127,37 @@ export class SongCollectionComponent implements OnInit {
     private loadMusic(): void {
         if (this.scopeCampaign) {
             if (!!this.campaign) {
-                this.musicService
-                    .getSongsByCampaign(this.campaign.id)
-                    .subscribe({
-                        next: (data) => {
-                            this.allSongs = data as SongDto[];
-                            this.applyFilters();
-                        },
-                        error: (error) => {
-                            console.error(
-                                'Failed to load music list for campaign',
-                                error,
-                            );
-                        },
-                    });
+                if (this.invertScope) {
+                    this.musicService
+                        .getSongsExcludingCampaign(this.campaign.id)
+                        .subscribe({
+                            next: (data) => {
+                                this.allSongs = data as SongDto[];
+                                this.applyFilters();
+                            },
+                            error: (error) => {
+                                console.error(
+                                    'Failed to load music list for campaign',
+                                    error,
+                                );
+                            },
+                        });
+                } else {
+                    this.musicService
+                        .getSongsByCampaign(this.campaign.id)
+                        .subscribe({
+                            next: (data) => {
+                                this.allSongs = data as SongDto[];
+                                this.applyFilters();
+                            },
+                            error: (error) => {
+                                console.error(
+                                    'Failed to load music list for campaign',
+                                    error,
+                                );
+                            },
+                        });
+                }
             }
         } else {
             this.musicService.getSongs().subscribe({

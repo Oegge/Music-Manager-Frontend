@@ -21,6 +21,13 @@ export class MusicService {
         return this.http.get<SongDto[]>(this.baseUrl, { params });
     }
 
+    getSongsExcludingCampaign(campaignId: string): Observable<SongDto[]> {
+        const params = new HttpParams()
+            .set('campaignId', campaignId)
+            .set('invertScope', true);
+        return this.http.get<SongDto[]>(this.baseUrl, { params });
+    }
+
     getTags(): Observable<Tag[]> {
         return this.http.get<Tag[]>(`${this.baseUrl}/tags`);
     }
