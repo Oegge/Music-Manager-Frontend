@@ -7,6 +7,7 @@ import { AddSongsComponent } from './add-songs/add-songs.component';
 import { RemoveSongsComponent } from './remove-songs/remove-songs.component';
 
 const routes: Routes = [
+    { path: '', redirectTo: 'overview', pathMatch: 'full' },
     { path: 'overview', component: CampaignOverviewComponent },
     { path: 'create', component: CreateCampaignComponent },
     { path: ':campaignId', component: CampaignDetailComponent },

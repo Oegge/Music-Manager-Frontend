@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 export const appRoutes: Routes = [
-    { path: '', redirectTo: '/music', pathMatch: 'full' },
+    { path: '', redirectTo: '/campaign', pathMatch: 'full' },
 
     {
         path: 'playlist',
@@ -20,7 +20,7 @@ export const appRoutes: Routes = [
             import('./campaign/campaign.module').then((m) => m.CampaignModule),
     },
 
-    { path: '**', redirectTo: '/music' },
+    { path: '**', redirectTo: '/campaign' },
 ];
 
 @NgModule({
