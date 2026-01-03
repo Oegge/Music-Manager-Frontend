@@ -63,10 +63,14 @@ export class SongCardComponent implements OnInit {
     toggleRepeat(event: MouseEvent): void {
         event.stopPropagation();
         this.repeat = !this.repeat;
+        console.log('toggle repeat');
+        console.log(this.repeat);
     }
 
     handleSongEnd(): void {
         if (this.repeat) {
+            console.log('emit restart');
+            this.playing = true;
             this.restart.emit();
         } else {
             this.playing = false;
