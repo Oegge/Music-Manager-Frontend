@@ -34,6 +34,13 @@ export class UploadSongsComponent implements OnInit {
     filteredTags: Tag[][] = [];
     availableCampaigns: Campaign[] = [];
     selectedCampaignsControl = new FormControl<Campaign[]>([]);
+    renamePatternControl = new FormControl<string>('');
+    renameReplaceControl = new FormControl<string>('');
+    renameError: string | null = null;
+    previewOriginal: string = '';
+    previewResult: string = '';
+    previewError: string | null = null;
+    private originalTitles: string[] = [];
 
     constructor(
         private musicService: MusicService,
@@ -84,8 +91,9 @@ export class UploadSongsComponent implements OnInit {
                     campaigns: [],
                 };
             });
-
-            this.filteredTags = this.songs.map(() => this.availableTags); // Initialize filtered tags
+            this.originalTitles = this.songs.map((s) => s.title);
+            this.updateRenamePreview();
+            this.filteredTags = this.songs.map(() => this.availableTags);
         }
     }
 
@@ -96,6 +104,64 @@ export class UploadSongsComponent implements OnInit {
         return this.availableTags.filter((tag) =>
             tag.name.toLowerCase().includes(searchText.toLowerCase()),
         );
+    }
+
+    applyRenameRegex(): void {
+        this.renameError = null;
+
+        const pattern = (this.renamePatternControl.value ?? '').trim();
+        const replacement = this.renameReplaceControl.value ?? '';
+
+        if (!pattern) {
+            this.songs.forEach((song, i) => {
+                song.title = this.originalTitles[i] ?? song.title;
+            });
+            return;
+        }
+
+        let regex: RegExp;
+        try {
+            regex = new RegExp(pattern, 'g');
+        } catch (e: any) {
+            this.renameError = e?.message ?? 'Invalid regex pattern.';
+            return;
+        }
+
+        this.songs.forEach((song, i) => {
+            const base = this.originalTitles[i] ?? song.title;
+            song.title = base.replace(regex, replacement).trim();
+        });
+
+        this.updateRenamePreview();
+    }
+
+    updateRenamePreview(): void {
+        this.previewError = null;
+
+        if (!this.songs.length) {
+            this.previewOriginal = '';
+            this.previewResult = '';
+            return;
+        }
+
+        const base = this.originalTitles[0] ?? this.songs[0].title; // preview first song
+        const pattern = (this.renamePatternControl.value ?? '').trim();
+        const replacement = this.renameReplaceControl.value ?? '';
+
+        this.previewOriginal = base;
+
+        if (!pattern) {
+            this.previewResult = base;
+            return;
+        }
+
+        try {
+            const regex = new RegExp(pattern, 'g');
+            this.previewResult = base.replace(regex, replacement).trim();
+        } catch (e: any) {
+            this.previewError = e?.message ?? 'Invalid regex pattern.';
+            this.previewResult = base;
+        }
     }
 
     submitSongs(): void {
@@ -141,6 +207,15 @@ export class UploadSongsComponent implements OnInit {
     private clearForm(): void {
         this.songs = [];
         this.filteredTags = [];
+        this.originalTitles = [];
+
+        this.renamePatternControl.setValue('');
+        this.renameReplaceControl.setValue('');
+        this.renameError = null;
+        this.previewOriginal = '';
+        this.previewResult = '';
+        this.previewError = null;
+
         this.selectedCampaignsControl.setValue([]);
         this.fileInput.nativeElement.value = '';
     }

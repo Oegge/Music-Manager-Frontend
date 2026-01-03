@@ -48,6 +48,62 @@ input[type="text"]:hover {
     border-color: var(--border-color-solid);
 }
 
+.rename-box {
+    margin: 12px 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.rename-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.error {
+    margin-top: 6px;
+    color: #c00;
+}
+
+.hint {
+    margin-top: 6px;
+    opacity: 0.8;
+}
+
+.preview {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed var(--border-color-solid);
+}
+
+.preview-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.preview-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.preview-label {
+    width: 70px;
+    opacity: 0.8;
+}
+
+.preview-value {
+    word-break: break-word;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
 /* The following css is to force material to look how I want */
 

@@ -13,8 +13,56 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
 </div>
+
+<div *ngIf="songs?.length" class="rename-box">
+    <div class="heading-s">Rename titles (Regex)</div>
+
+    <div class="rename-row">
+        <div class="input-group">
+            <label>Pattern</label>
+            <input
+                    type="text"
+                    [formControl]="renamePatternControl"
+                    (input)="updateRenamePreview()"
+                    placeholder="^CD\d+\s*-\s*"
+            />
+        </div>
+
+        <div class="input-group">
+            <label>Replace</label>
+            <input
+                    type="text"
+                    [formControl]="renameReplaceControl"
+                    (input)="updateRenamePreview()"
+                    placeholder=""
+            />
+        </div>
+
+        <button class="btn" type="button" (click)="applyRenameRegex()">
+            Apply
+        </button>
+    </div>
+
+    <div class="preview" *ngIf="previewOriginal">
+        <div class="preview-title">Preview (first song)</div>
+
+        <div *ngIf="previewError" class="error">
+            {{ previewError }}
+        </div>
+
+        <div class="preview-row">
+            <div class="preview-label">Original:</div>
+            <div class="preview-value">{{ previewOriginal }}</div>
+        </div>
+
+        <div class="preview-row">
+            <div class="preview-label">Result:</div>
+            <div class="preview-value">{{ previewResult }}</div>
+        </div>
+    </div>
+</div>
+
 <div *ngFor="let song of songs; let i = index" class="song-entry">
     <div>
         <label for="title-{{ i }}">Title</label>
