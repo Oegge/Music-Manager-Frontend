@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Campaign, PlaylistDto, SongDto } from '../../../objects/dto/base';
 import { CampaignService } from '../../services/campaign.service';
 import { MusicService } from '../../services/music.service';
@@ -12,7 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
     standalone: false,
 })
 export class CampaignDetailComponent implements OnInit {
-    private destroyRef = inject(DestroyRef);
     public campaign!: Campaign;
     public songs: SongDto[] = [];
     public playlists: PlaylistDto[] = [];
@@ -58,11 +57,11 @@ export class CampaignDetailComponent implements OnInit {
 
     public onAddSongs() {
         this.campaignService.selectCampaign(this.campaign);
-        this.router.navigate(['/music/library']);
+        this.router.navigate([`/campaign/${this.campaign.id}/add-songs`]);
     }
 
     public onRemoveSongs() {
         this.campaignService.selectCampaign(this.campaign);
-        this.router.navigate(['/music/library']);
+        this.router.navigate([`/campaign/${this.campaign.id}/remove-songs`]);
     }
 }

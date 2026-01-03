@@ -66,6 +66,22 @@ export class CampaignService {
         return this.http.get<Campaign>(`${this.baseUrl}/${campaignId}`);
     }
 
+    public addSongsToCampaign(campaignId: string, songIds: string[]) {
+        const bodyParams = { SongIds: songIds };
+        return this.http.put(
+            `${this.baseUrl}/${campaignId}/add-songs`,
+            bodyParams,
+        );
+    }
+
+    public removeSongsFromCampaign(campaignId: string, songIds: string[]) {
+        const bodyParams = { SongIds: songIds };
+        return this.http.put(
+            `${this.baseUrl}/${campaignId}/remove-songs`,
+            bodyParams,
+        );
+    }
+
     private refreshCampaigns() {
         this.http.get<Campaign[]>(this.baseUrl).subscribe({
             next: (cs) => {

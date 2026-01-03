@@ -1,1 +1,8 @@
-<p>remove-songs works!</p>
+<div *ngIf="!!campaign">
+    <div class="add-songs-headline">
+        <div class="heading-m">Select Songs to remove from {{ campaign.name }}</div>
+        <button class="btn" (click)="onRemoveSongs()">Remove Selected Sons</button>
+    </div>
+    <app-song-collection [scopeCampaign]="true" [allowTagging]="false" [allowSelecting]="true" [invertScope]="false"
+                         (songIdsSelected)="onSongIdsSelected($event)"></app-song-collection>
+</div>
