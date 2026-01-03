@@ -1,13 +1,17 @@
 <div class="heading-m">{{ playlist?.name }}</div>
 <div class="row-menu">
-    <div>
-        <mat-slide-toggle [(ngModel)]="enableFade">Enable Fade</mat-slide-toggle>
-    </div>
     <button (click)="pauseAllPlayers()" class="btn tiny-icon" [ngClass]="{disabled : isPaused}">
             <span class="material-icons">
                 {{ isPaused ? 'play_arrow' : 'pause' }}
             </span>
     </button>
+    <div>
+        <mat-slide-toggle [(ngModel)]="enableFade">
+            <div class="text">
+                Enable Fade
+            </div>
+        </mat-slide-toggle>
+    </div>
 </div>
 
 <div class="music-grid">
