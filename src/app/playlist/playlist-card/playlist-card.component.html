@@ -1,7 +1,7 @@
 <div class="playlist-card">
-    <div class="card-left" (click)="navigateToPlaylist(playlist.id)">
+    <a class="card-left" [routerLink]="['/playlist', playlist.id]">
         <div class="playlist-link">{{ playlist.name }}</div>
-    </div>
+    </a>
     <div class="card-right ">
         <button class="btn tight" (click)="onRequestDelete()">Delete</button>
     </div>
