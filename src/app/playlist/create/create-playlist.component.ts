@@ -99,16 +99,16 @@ export class CreatePlaylistComponent implements OnInit {
             if (this.useAndFilter) {
                 // AND logic: every selected tag must be present
                 filteredSongs = filteredSongs.filter((song) => {
-                    return this.selectedTags.every((tag) =>
-                        song.tags.includes(tag),
-                    );
+                    return this.selectedTags.every((tag) => {
+                        return song.tags.some((t) => t.id === tag.id);
+                    });
                 });
             } else {
                 // OR logic: any of the selected tags may be present
                 filteredSongs = filteredSongs.filter((song) => {
-                    return this.selectedTags.some((tag) =>
-                        song.tags.includes(tag),
-                    );
+                    return this.selectedTags.some((tag) => {
+                        return song.tags.some((t) => t.id === tag.id);
+                    });
                 });
             }
         }
