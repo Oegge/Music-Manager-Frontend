@@ -29,6 +29,10 @@ export class PlaylistCardComponent implements OnInit {
         this.router.navigate(['/playlist', id]);
     }
 
+    onEdit(id: string): void {
+        this.router.navigate(['/playlist', id, 'edit']);
+    }
+
     onRequestDelete(): void {
         this.deletionRequested = true;
     }

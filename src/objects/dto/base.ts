@@ -28,3 +28,9 @@ export interface CreatePlaylistRequestDto {
     name: string;
     campaignId: string;
 }
+
+export interface EditPlaylistRequestDto {
+    playlistId: string;
+    name: string;
+    songIds: string[];
+}

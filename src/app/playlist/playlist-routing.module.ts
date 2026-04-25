@@ -8,6 +8,7 @@ const routes: Routes = [
     { path: 'create', component: CreatePlaylistComponent },
     { path: 'overview', component: PlaylistOverviewComponent },
     { path: ':playlistId', component: PlaylistComponent },
+    { path: ':playlistId/edit', component: CreatePlaylistComponent },
 ];
 
 @NgModule({

@@ -3,7 +3,8 @@
         <div class="playlist-link">{{ playlist.name }}</div>
     </a>
     <div class="card-right ">
-        <button class="btn tight" (click)="onRequestDelete()">Delete</button>
+        <button class="btn tight same-size" (click)="onEdit(playlist.id)">Edit</button>
+        <button class="btn tight same-size" (click)="onRequestDelete()">Delete</button>
     </div>
 </div>
 

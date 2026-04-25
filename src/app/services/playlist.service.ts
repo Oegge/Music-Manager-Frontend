@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Campaign, PlaylistDto } from '../../objects/dto/base';
+import {
+    Campaign,
+    CreatePlaylistRequestDto,
+    EditPlaylistRequestDto,
+    PlaylistDto,
+} from '../../objects/dto/base';
 
 @Injectable({
     providedIn: 'root',
@@ -14,8 +19,12 @@ export class PlaylistService {
 
     constructor(private http: HttpClient) {}
 
-    create(request: any) {
+    create(request: CreatePlaylistRequestDto) {
         return this.http.post<string>(`${this.baseUrl}`, request);
+    }
+
+    update(request: EditPlaylistRequestDto) {
+        return this.http.put<string>(`${this.baseUrl}`, request);
     }
 
     getPlaylists(): Observable<PlaylistDto[]> {

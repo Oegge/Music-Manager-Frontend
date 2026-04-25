@@ -10,11 +10,12 @@ import {
 import { MusicService } from '../../services/music.service';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { PlaylistService } from '../../services/playlist.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from '../../services/file.service';
 import {
     Campaign,
     CreatePlaylistRequestDto,
+    EditPlaylistRequestDto,
     SongDto,
     Tag,
 } from '../../../objects/dto/base';
@@ -22,7 +23,7 @@ import { CampaignService } from '../../services/campaign.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-create',
+    selector: 'app-create-playlist',
     templateUrl: './create-playlist.component.html',
     styleUrls: ['./create-playlist.component.css'],
     standalone: false,
@@ -37,8 +38,10 @@ export class CreatePlaylistComponent implements OnInit {
     searchText: string = '';
     useAndFilter: boolean = false;
 
+    protected isEditMode = false;
     protected campaign?: Campaign;
     private allSongs: SongDto[] = [];
+    private playlistId?: string;
 
     constructor(
         private musicService: MusicService,
@@ -46,9 +49,23 @@ export class CreatePlaylistComponent implements OnInit {
         private campaignService: CampaignService,
         private router: Router,
         public fileService: FileService,
+        private route: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
+        this.route.paramMap.subscribe((params) => {
+            const playlistId = params.get('playlistId');
+
+            if (!!playlistId) {
+                this.isEditMode = true;
+                this.playlistService.get(playlistId).subscribe((playlist) => {
+                    this.playlistName = playlist.name;
+                    this.playlist = playlist.songs;
+                    this.campaign = playlist.campaign;
+                    this.playlistId = playlistId;
+                });
+            }
+        });
         this.campaignService.currentCampaign$
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((campaign) => {
@@ -130,21 +147,38 @@ export class CreatePlaylistComponent implements OnInit {
     }
 
     savePlaylist(): void {
-        const data: CreatePlaylistRequestDto = {
-            name: this.playlistName,
-            campaignId: this.campaign?.id ?? '',
-            songIds: this.playlist.map((song) => song.id),
-        };
+        if (this.isEditMode) {
+            const data: EditPlaylistRequestDto = {
+                playlistId: this.playlistId ?? '',
+                name: this.playlistName,
+                songIds: this.playlist.map((song) => song.id),
+            };
+            this.playlistService.update(data).subscribe({
+                next: (response) => {
+                    console.log('Playlist saved successfully', response);
+                    this.router.navigate(['playlist/overview']);
+                },
+                error: (error) => {
+                    console.error('Error saving playlist:', error);
+                },
+            });
+        } else {
+            const data: CreatePlaylistRequestDto = {
+                name: this.playlistName,
+                campaignId: this.campaign?.id ?? '',
+                songIds: this.playlist.map((song) => song.id),
+            };
 
-        this.playlistService.create(data).subscribe({
-            next: (response) => {
-                console.log('Playlist saved successfully', response);
-                this.router.navigate(['playlist/overview']);
-            },
-            error: (error) => {
-                console.error('Error saving playlist:', error);
-            },
-        });
+            this.playlistService.create(data).subscribe({
+                next: (response) => {
+                    console.log('Playlist saved successfully', response);
+                    this.router.navigate(['playlist/overview']);
+                },
+                error: (error) => {
+                    console.error('Error saving playlist:', error);
+                },
+            });
+        }
     }
 
     cancel(): void {
