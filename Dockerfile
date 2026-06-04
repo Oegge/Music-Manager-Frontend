@@ -15,8 +15,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular application
-RUN npm run build --prod
-
+RUN npm run build -- --configuration production --base-href /music/
 # Step 2: Serve the Angular application
 FROM nginx:alpine AS runtime
 
