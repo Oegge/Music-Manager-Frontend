@@ -12,7 +12,7 @@
 }
 
 .page {
-    background-image: url('/assets/backgrounds/starryBackground.png');
+    background-image: url('assets/backgrounds/starryBackground.png');
     background-position: top right;
     background-repeat: no-repeat;
     background-size: cover;
